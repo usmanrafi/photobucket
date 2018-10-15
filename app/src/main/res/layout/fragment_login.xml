@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data class = "LoginDataBinding">
+
+        <variable
+            name="login"
+            type="com.vend.photobucket.ui.authentication.login.LoginViewModel"/>
+
+        <variable
+            name="clickListener"
+            type="com.vend.photobucket.ui.authentication.login.LoginClickListener"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin_parent_layout"
+        tools:context=".ui.authentication.login.LoginFragment">
+
+        <EditText
+            android:id="@+id/etPhoneNumber"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="@={login.phoneNumber}"
+            android:hint="@string/hint_phone_number"
+            android:maxLines="1"
+            android:inputType="phone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/etPassword"
+            />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@={login.password}"
+            android:hint="@string/hint_password"
+            android:maxLines="1"
+            android:inputType="textPassword"
+            app:layout_constraintTop_toBottomOf="@id/etPhoneNumber"
+            app:layout_constraintBottom_toTopOf="@id/btnLogin"/>
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_login_button"
+            android:onClick="@{clickListener::login}"
+            app:layout_constraintTop_toBottomOf="@id/etPassword"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tvRegister"/>
+
+        <TextView
+            android:id="@+id/tvRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_register_switch"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:onClick="@{clickListener::openRegisterScreen}"
+            app:layout_constraintTop_toBottomOf="@id/btnLogin"
+            app:layout_constraintBottom_toTopOf="@id/tvForgot"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/tvForgot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_forgot_switch"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:onClick="@{clickListener::openForgotScreen}"
+            app:layout_constraintTop_toBottomOf="@id/tvRegister"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:focusable="true" />
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

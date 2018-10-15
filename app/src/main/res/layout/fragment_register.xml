@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data class = "RegisterDataBinding">
+
+        <variable
+            name="register"
+            type="com.vend.photobucket.ui.authentication.register.RegisterViewModel"/>
+
+        <variable
+            name="clickListener"
+            type="com.vend.photobucket.ui.authentication.register.RegisterClickListener"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin_parent_layout"
+        tools:context=".ui.authentication.register.RegisterFragment">
+
+
+        <LinearLayout
+            android:id="@+id/llNames"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/etPhoneNumber"
+            >
+
+            <EditText
+                android:id="@+id/etFirstName"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="@={register.firstName}"
+                android:hint="@string/hint_first_name"
+                android:maxLines="1"
+                android:layout_weight="1"
+                android:inputType="text"
+                />
+
+            <EditText
+                android:id="@+id/etLastName"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="@={register.lastName}"
+                android:hint="@string/hint_last_name"
+                android:maxLines="1"
+                android:layout_weight="1"
+                android:inputType="text"
+                />
+
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/etPhoneNumber"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="@={register.phoneNumber}"
+            android:hint="@string/hint_phone_number"
+            android:maxLines="1"
+            android:inputType="phone"
+            app:layout_constraintTop_toBottomOf="@id/llNames"
+            app:layout_constraintBottom_toTopOf="@id/etPassword"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@={register.password}"
+            android:hint="@string/hint_password"
+            android:maxLines="1"
+            android:inputType="textPassword"
+            app:layout_constraintTop_toBottomOf="@id/etPhoneNumber"
+            app:layout_constraintBottom_toTopOf="@id/etConfirmPassword"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+        <EditText
+            android:id="@+id/etConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@={register.confirmPassword}"
+            android:hint="@string/hint_confirm_password"
+            android:maxLines="1"
+            android:inputType="textPassword"
+            app:layout_constraintTop_toBottomOf="@id/etPassword"
+            app:layout_constraintBottom_toTopOf="@id/btnRegister"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_register_button"
+            android:onClick="@{clickListener::register}"
+            app:layout_constraintTop_toBottomOf="@id/etConfirmPassword"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tvLogin"/>
+
+        <TextView
+            android:id="@+id/tvLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_login_switch"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:onClick="@{clickListener::openLoginScreen}"
+            app:layout_constraintTop_toBottomOf="@id/btnRegister"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:focusable="true" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

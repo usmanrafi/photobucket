@@ -207,8 +207,7 @@ class PhotoActivity : AppCompatActivity() {
     private fun setupRecyclerView(){
 
         rvAdapter = PhotoAdapter(ArrayList(),this)
-//
-//        rvAdapter = PhotoAdapter(getImages(), this)
+
         val recyclerView = rvImages
         recyclerView.apply {
             adapter = rvAdapter
@@ -216,33 +215,5 @@ class PhotoActivity : AppCompatActivity() {
 
 
         }
-    }
-
-    private fun getImages(): RealmList<Image>{
-        val arrayList: RealmList<Image> = RealmList()
-
-        var i:Long = 0
-        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
-        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
-        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
-        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
-        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
-        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
-        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
-        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
-        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
-        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
-        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
-        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
-        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
-        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
-        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
-        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
-        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
-        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
-        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
-        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
-
-        return arrayList
     }
 }

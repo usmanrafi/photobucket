@@ -44,7 +44,7 @@ class PhotoAdapter(private var data: ArrayList<Image>,
         val img: Image = data[position]
 
         holder.tvTitle.text = img.title
-        //todo: add image
+        //todo: use dagger
         val picasso = Picasso.Builder(this.activity).build()
         picasso.load("file://${img.path}")
                 .placeholder(R.drawable.twotone_add_a_photo_24)

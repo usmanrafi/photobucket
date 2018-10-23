@@ -15,7 +15,8 @@ class SharedPreferenceHelper(var sharedPreferences: SharedPreferences) {
     fun getSession(): String? = sharedPreferences.getString(this.KEY, null)
 
     fun clearSession() {
-        sharedPreferences.edit().remove(this.KEY).apply()
+//        sharedPreferences.edit().remove(this.KEY).commit()
+        sharedPreferences.edit().clear().commit()
     }
 
 }

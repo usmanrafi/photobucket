@@ -23,5 +23,6 @@
     <string name="text_button_save">Save</string>
     <string name="hint_description">Description</string>
     <string name="hint_title">Title</string>
+    <string name="btn_text_select_all">Select All</string>
 
 </resources>

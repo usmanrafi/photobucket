@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import com.vend.photobucket.R
 import com.vend.photobucket.application.PhotoApplication
@@ -39,6 +40,8 @@ class PhotoActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var toolbar: Toolbar
 
+    private lateinit var rvAdapter: PhotoAdapter
+
     private var isList = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,7 +67,7 @@ class PhotoActivity : AppCompatActivity() {
             supportActionBar?.title = str
         }
 
-        setupSwitchButton()
+        setupButtons()
         setupRecyclerView()
     }
 
@@ -129,7 +132,12 @@ class PhotoActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupSwitchButton(){
+    private fun setupButtons(){
+
+        btnSelectAll.apply{
+            this.visibility = View.VISIBLE // todo: handle this
+            setOnClickListener { rvAdapter.selectAll() }
+        }
 
         ibSwitchView.apply {
             setImageResource(R.drawable.ic_view_list_black_24dp)
@@ -150,9 +158,12 @@ class PhotoActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView(){
+
+        rvAdapter = PhotoAdapter(getImages())
+
         val recyclerView = rvImages
         recyclerView.apply {
-            adapter = PhotoAdapter(getImages())
+            adapter = rvAdapter
 //            layoutManager = LinearLayoutManager(context)
             layoutManager = GridLayoutManager(context,3)
         }

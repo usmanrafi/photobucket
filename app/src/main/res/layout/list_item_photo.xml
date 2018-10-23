@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="15dp">
+    android:elevation="15dp"
+    android:background="@android:color/darker_gray"
+    android:layout_margin="15dp">
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="2"/>
+
 
     <ImageView
         android:id="@+id/ivImage"
@@ -18,7 +29,8 @@
         android:id="@+id/tvItemTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="8"
+        android:layout_weight="6"
+        android:layout_gravity="center_vertical"
         android:textStyle="bold"/>
 
 </LinearLayout>

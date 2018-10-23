@@ -68,10 +68,10 @@ class PhotoAdapter(private var data: ArrayList<Image>,
         }
 
 
-        if (selection.isEmpty()) {
+        if (selection.isEmpty())
             holder.checkbox.visibility = View.GONE
-
-        }
+        else
+            holder.checkbox.visibility = View.VISIBLE
 
         if (selection.contains(img)) {
             holder.parent.setBackgroundColor(Color.CYAN)

@@ -6,6 +6,7 @@ import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.squareup.picasso.Picasso
 import com.vend.photobucket.R
 import com.vend.photobucket.model.Image
@@ -20,10 +21,19 @@ class DetailsFragment : Fragment() {
 
     private lateinit var image: Image
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val view = inflater.inflate(R.layout.fragment_details, container, false)
-        return view
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            val param = it.getString(ARG_IMAGE)
+            val arr = param.split("|")
+            image = Image(arr[0].toLong(), arr[1], arr[2], arr[3], arr[4])
+        }
+    }
+
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_details, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,7 +86,12 @@ class DetailsFragment : Fragment() {
         }
 
         btnShare.setOnClickListener {
-            //todo: Share
+            val selectContactsFragment = SelectContactsFragment.newInstance(image)
+
+            activity!!.supportFragmentManager.beginTransaction()
+                    .replace((view!!.parent as ViewGroup).id, selectContactsFragment, null)
+                    .addToBackStack("Details")
+                    .commit()
         }
 
         btnSave.setOnClickListener{
@@ -87,15 +102,6 @@ class DetailsFragment : Fragment() {
 
             (activity as PhotoActivity).updateImage(image)
             activity?.onBackPressed()
-        }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            val param = it.getString(ARG_IMAGE)
-            val arr = param.split("|")
-            image = Image(arr[0].toLong(), arr[1], arr[2], arr[3], arr[4])
         }
     }
 

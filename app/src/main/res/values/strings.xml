@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">PhotoBucket</string>
 
-    <string name="text_login_button">Login</string>
+    <string name="button_text_login">Login</string>
     <string name="text_register_switch">Not a User? Register here</string>
     <string name="text_login_switch">Already a User? Login</string>
     <string name="hint_phone_number">Phone Number</string>
@@ -9,22 +9,22 @@
     <string name="hint_last_name">Last Name</string>
     <string name="hint_first_name">First Name</string>
     <string name="hint_confirm_password">Confirm Password</string>
-    <string name="text_register_button">Register</string>
+    <string name="button_text_register">Register</string>
     <string name="text_forgot_switch">Forgot Password? Click here</string>
     <string name="text_forgot_verify_number">Verify Number</string>
     <string name="text_forgot_change_password">Change Password</string>
 
     <string name="title_menu_photos">Home</string>
     <string name="title_menu_logout">Logout</string>
-    <string name="text_toolbar_button_add">Add</string>
+    <string name="button_text_add">Add</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="text_button_save">Save</string>
     <string name="hint_description">Description</string>
     <string name="hint_title">Title</string>
     <string name="button_text_select_all">Select All</string>
     <string name="button_text_delete">Delete</string>
     <string name="button_text_share">Share</string>
     <string name="button_text_save">Save</string>
+    <string name="button_text_send">Send</string>
 
 </resources>

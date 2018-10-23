@@ -1,10 +1,16 @@
 package com.vend.photobucket.ui.photo
 
+import android.Manifest
+import android.annotation.TargetApi
 import android.arch.lifecycle.Observer
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.design.widget.NavigationView
+import android.support.v4.content.PermissionChecker
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.*
@@ -27,6 +33,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
 class PhotoActivity : AppCompatActivity() {
+    private val PERMISSIONS = 30
 
     @Inject
     lateinit var addPhotoFragment: AddPhotoFragment
@@ -48,6 +55,8 @@ class PhotoActivity : AppCompatActivity() {
 
         (applicationContext as PhotoApplication).getAppComponent().inject(this)
 
+        checkForPermissions()
+
         navigationView = drawer
         drawerLayout = drawer_layout
         toolbar = toolbar_layout
@@ -63,6 +72,7 @@ class PhotoActivity : AppCompatActivity() {
         subscribe()
 
         photoViewModel.checkSession()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -92,8 +102,6 @@ class PhotoActivity : AppCompatActivity() {
 
     fun updateImage(image: Image){
         photoViewModel.updateImage(image)
-        Toast.makeText(this, "$image", Toast.LENGTH_SHORT)
-                .show()
         rvAdapter.notifyDataSetChanged()
     }
 
@@ -109,10 +117,6 @@ class PhotoActivity : AppCompatActivity() {
                 .replace(android.R.id.content, detailsFragment)
                 .addToBackStack("PhotoActivity")
                 .commit()
-
-
-        Toast.makeText(this, "$image", Toast.LENGTH_SHORT)
-                .show()
     }
 
     private fun subscribe(){
@@ -214,6 +218,46 @@ class PhotoActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context)
 
 
+        }
+    }
+
+    private fun checkForPermissions() {
+        if(Build.VERSION.SDK_INT >= 23 &&
+                PermissionChecker.checkSelfPermission(this, Manifest.permission.RECEIVE_BOOT_COMPLETED)
+                != PackageManager.PERMISSION_GRANTED
+                && PermissionChecker.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED
+                && PermissionChecker.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED
+                && PermissionChecker.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissions()
+
+        }
+    }
+
+
+    @TargetApi(Build.VERSION_CODES.M)
+    private fun requestPermissions(){
+        requestPermissions(arrayOf(
+                android.Manifest.permission.RECEIVE_BOOT_COMPLETED,
+                android.Manifest.permission.CAMERA,
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                android.Manifest.permission.READ_CONTACTS
+        ),PERMISSIONS)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if(requestCode == PERMISSIONS){
+            if(!grantResults.isEmpty()
+                    && !(grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[2] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[3] == PackageManager.PERMISSION_GRANTED))
+                requestPermissions()
         }
     }
 }

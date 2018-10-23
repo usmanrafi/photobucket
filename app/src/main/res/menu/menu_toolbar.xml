@@ -4,6 +4,6 @@
     <item
         android:id="@+id/btnAdd"
         android:orderInCategory="1"
-        android:title="@string/text_toolbar_button_add"
+        android:title="@string/button_text_add"
         app:showAsAction="always"/>
 </menu>

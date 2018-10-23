@@ -196,9 +196,9 @@ class AddPhotoFragment : Fragment() {
 
     private fun checkForPermissions() {
         if(Build.VERSION.SDK_INT >= 23 &&
-                checkSelfPermission(this.context!!, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                checkSelfPermission(this.context!!, android.Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED
-                && checkSelfPermission(this.context!!, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                && checkSelfPermission(this.context!!, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED){
 
             requestPermissions()

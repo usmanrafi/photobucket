@@ -7,5 +7,13 @@ open class Image(
         @PrimaryKey
         var title: String = "",
         var description: String = "",
-        var encodedImage: String = ""
-        ): RealmObject()
+        var path: String = ""
+        ): RealmObject() {
+
+    override fun equals(other: Any?): Boolean {
+        if(other is Image){
+            return other.title == this.title
+        }
+        return super.equals(other)
+    }
+}

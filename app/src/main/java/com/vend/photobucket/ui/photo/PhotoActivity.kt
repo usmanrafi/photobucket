@@ -14,6 +14,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import com.vend.photobucket.R
 import com.vend.photobucket.application.PhotoApplication
 import com.vend.photobucket.data.RealmHelper
@@ -22,6 +23,7 @@ import com.vend.photobucket.model.Image
 import com.vend.photobucket.model.User
 import com.vend.photobucket.ui.authentication.AuthenticationActivity
 import com.vend.photobucket.ui.photo.addphoto.AddPhotoFragment
+import io.realm.RealmList
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
@@ -63,7 +65,7 @@ class PhotoActivity : AppCompatActivity() {
         val phoneNumber = sharedPreferenceHelper.getSession()
         phoneNumber?.let{
             user = realmHelper.getUser(it)
-            val str = "${user!!.firstName} ${user!!.lastName}"
+            val str = "${user?.firstName} ${user?.lastName}"
             supportActionBar?.title = str
         }
 
@@ -139,6 +141,15 @@ class PhotoActivity : AppCompatActivity() {
             setOnClickListener { rvAdapter.selectAll() }
         }
 
+        btnDelete.apply {
+            this.visibility = View.VISIBLE // todo: handle this
+            setOnClickListener {
+                if(!rvAdapter.delete())
+                    Toast.makeText(this.context, "Please select image(s) first", Toast.LENGTH_LONG)
+                            .show()
+            }
+        }
+
         ibSwitchView.apply {
             setImageResource(R.drawable.ic_view_list_black_24dp)
 
@@ -169,28 +180,30 @@ class PhotoActivity : AppCompatActivity() {
         }
     }
 
-    private fun getImages(): List<Image>{
-        val arrayList: ArrayList<Image> = ArrayList()
-        arrayList.add(Image("Title", "Desc", ""))
-        arrayList.add(Image("Title", "Desc", ""))
-        arrayList.add(Image("Title", "Desc", ""))
-        arrayList.add(Image("Title", "Desc", ""))
-        arrayList.add(Image("Title", "Desc", ""))
-        arrayList.add(Image("Title", "Desc", ""))
-        arrayList.add(Image("Title", "Desc", ""))
-        arrayList.add(Image("Title", "Desc", ""))
-        arrayList.add(Image("Title", "Desc", ""))
-        arrayList.add(Image("Title", "Desc", ""))
-        arrayList.add(Image("Title", "Desc", ""))
-        arrayList.add(Image("Title", "Desc", ""))
-        arrayList.add(Image("Title", "Desc", ""))
-        arrayList.add(Image("Title", "Desc", ""))
-        arrayList.add(Image("Title", "Desc", ""))
-        arrayList.add(Image("Title", "Desc", ""))
-        arrayList.add(Image("Title", "Desc", ""))
-        arrayList.add(Image("Title", "Desc", ""))
-        arrayList.add(Image("Title", "Desc", ""))
-        arrayList.add(Image("Title", "Desc", ""))
+    private fun getImages(): RealmList<Image>{
+        val arrayList: RealmList<Image> = RealmList()
+
+        var i = 0
+        arrayList.add(Image("Title ${i++}", "Desc", ""))
+        arrayList.add(Image("Title ${i++}", "Desc", ""))
+        arrayList.add(Image("Title ${i++}", "Desc", ""))
+        arrayList.add(Image("Title ${i++}", "Desc", ""))
+        arrayList.add(Image("Title ${i++}", "Desc", ""))
+        arrayList.add(Image("Title ${i++}", "Desc", ""))
+        arrayList.add(Image("Title ${i++}", "Desc", ""))
+        arrayList.add(Image("Title ${i++}", "Desc", ""))
+        arrayList.add(Image("Title ${i++}", "Desc", ""))
+        arrayList.add(Image("Title ${i++}", "Desc", ""))
+        arrayList.add(Image("Title ${i++}", "Desc", ""))
+        arrayList.add(Image("Title ${i++}", "Desc", ""))
+        arrayList.add(Image("Title ${i++}", "Desc", ""))
+        arrayList.add(Image("Title ${i++}", "Desc", ""))
+        arrayList.add(Image("Title ${i++}", "Desc", ""))
+        arrayList.add(Image("Title ${i++}", "Desc", ""))
+        arrayList.add(Image("Title ${i++}", "Desc", ""))
+        arrayList.add(Image("Title ${i++}", "Desc", ""))
+        arrayList.add(Image("Title ${i++}", "Desc", ""))
+        arrayList.add(Image("Title ${i++}", "Desc", ""))
 
         return arrayList
     }

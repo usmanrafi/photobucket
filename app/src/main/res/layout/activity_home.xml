@@ -34,10 +34,22 @@
             android:id="@+id/btnSelectAll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_text_select_all"
+            android:text="@string/button_text_select_all"
             app:layout_constraintTop_toBottomOf="@id/appbar"
             app:layout_constraintBottom_toTopOf="@id/rvImages"
             app:layout_constraintLeft_toLeftOf="parent"
+            android:visibility="invisible"
+        />
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_text_delete"
+            app:layout_constraintTop_toBottomOf="@id/appbar"
+            app:layout_constraintBottom_toTopOf="@id/rvImages"
+            app:layout_constraintLeft_toRightOf="@id/btnSelectAll"
+            android:layout_marginLeft="@dimen/margin_small"
             android:visibility="invisible"
         />
 

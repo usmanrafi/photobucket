@@ -11,8 +11,9 @@ import android.widget.TextView
 import com.vend.photobucket.R
 import com.vend.photobucket.R.id.btnSelectAll
 import com.vend.photobucket.model.Image
+import io.realm.RealmList
 
-class PhotoAdapter(private val data: List<Image>) : RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
+class PhotoAdapter(private val data: RealmList<Image>) : RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
 
     private val selection: ArrayList<Image> = ArrayList()
 
@@ -32,7 +33,7 @@ class PhotoAdapter(private val data: List<Image>) : RecyclerView.Adapter<PhotoAd
     override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val img = data[position]
+        val img: Image = data[position]!!
 
         holder.tvTitle.text = img.title
         //todo: add image
@@ -74,5 +75,29 @@ class PhotoAdapter(private val data: List<Image>) : RecyclerView.Adapter<PhotoAd
             selection.add(it)
         }
         notifyDataSetChanged()
+    }
+
+    fun deleteAll(){
+        data.clear()
+        notifyDataSetChanged()
+    }
+
+    fun delete(list: RealmList<Image>? = null): Boolean{
+        if(list != null){
+            data.removeAll(list)
+            notifyDataSetChanged()
+            return true
+        }
+        else{
+            if(selection.isEmpty()){
+                return false
+            }
+
+            data.removeAll(selection)
+            selection.clear()
+            notifyDataSetChanged()
+
+            return true
+        }
     }
 }

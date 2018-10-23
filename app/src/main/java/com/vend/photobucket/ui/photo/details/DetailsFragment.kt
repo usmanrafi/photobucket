@@ -6,6 +6,7 @@ import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.squareup.picasso.Picasso
 import com.vend.photobucket.R
 import com.vend.photobucket.model.Image
 import com.vend.photobucket.ui.photo.PhotoActivity
@@ -32,6 +33,10 @@ class DetailsFragment : Fragment() {
 
     private fun setupView() {
         //todo: show Image
+        val picasso = Picasso.Builder(this.context!!).build()
+        picasso.load("file://${image.path}")
+                .placeholder(R.drawable.twotone_add_a_photo_24)
+                .into(ivImage)
 
         etTitle.setText(image.title)
         etDescription.setText(image.description)

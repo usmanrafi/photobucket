@@ -34,6 +34,5 @@ class AddPhotoViewModel: ViewModel(){
     }
 
     private fun validateDetails(): Boolean =
-        (!imageFlag && title.isNotBlank() && description.isNotBlank())
-    // todo: change !imageFlag to imageFlag
+        (imageFlag && title.isNotBlank() && description.isNotBlank())
 }

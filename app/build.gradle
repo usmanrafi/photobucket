@@ -52,6 +52,7 @@ dependencies {
     implementation "com.google.android.gms:play-services:$play_services_version"
     implementation "com.google.android.gms:play-services-auth:$play_services_version"
 
+    implementation "com.squareup.picasso:picasso:$picasso_version"
 
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "com.android.support.test:runner:$runner_version"

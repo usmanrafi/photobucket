@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import com.squareup.picasso.Picasso
 import com.vend.photobucket.R
 import com.vend.photobucket.model.Image
 import io.realm.RealmList
@@ -44,6 +45,10 @@ class PhotoAdapter(private var data: ArrayList<Image>,
 
         holder.tvTitle.text = img.title
         //todo: add image
+        val picasso = Picasso.Builder(this.activity).build()
+        picasso.load("file://${img.path}")
+                .placeholder(R.drawable.twotone_add_a_photo_24)
+                .into(holder.imageView)
 
         holder.checkbox.setOnClickListener {
             if (selection.contains(img)) {

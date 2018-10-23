@@ -13,6 +13,7 @@ buildscript {
         junit_version = '4.12'
         espresso_version = '3.0.2'
         runner_version = '1.0.2'
+        picasso_version = '2.71828'
     }
 
     repositories {

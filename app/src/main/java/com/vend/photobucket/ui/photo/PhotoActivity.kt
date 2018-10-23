@@ -1,20 +1,17 @@
 package com.vend.photobucket.ui.photo
 
+import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
+import android.support.v7.widget.*
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import com.vend.photobucket.R
 import com.vend.photobucket.application.PhotoApplication
@@ -35,9 +32,7 @@ class PhotoActivity : AppCompatActivity() {
     lateinit var addPhotoFragment: AddPhotoFragment
 
     @Inject
-    lateinit var sharedPreferenceHelper: SharedPreferenceHelper
-    @Inject
-    lateinit var realmHelper: RealmHelper
+    lateinit var photoViewModel: PhotoViewModel
 
     private lateinit var navigationView: NavigationView
     private lateinit var drawerLayout: DrawerLayout
@@ -62,16 +57,12 @@ class PhotoActivity : AppCompatActivity() {
         setupToolbar()
         setNavigationListener()
 
-        var user: User?
-        val phoneNumber = sharedPreferenceHelper.getSession()
-        phoneNumber?.let{
-            user = realmHelper.getUser(it)
-            val str = "${user?.firstName} ${user?.lastName}"
-            supportActionBar?.title = str
-        }
-
         setupButtons()
         setupRecyclerView()
+
+        subscribe()
+
+        photoViewModel.checkSession()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -94,6 +85,22 @@ class PhotoActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    fun addImage(title: String, description: String, path: String){
+        photoViewModel.addImage(title, description, path)
+        rvAdapter.notifyDataSetChanged()
+    }
+
+    fun updateImage(image: Image){
+        photoViewModel.updateImage(image)
+        Toast.makeText(this, "$image", Toast.LENGTH_SHORT)
+                .show()
+        rvAdapter.notifyDataSetChanged()
+    }
+
+    fun deleteImages(images: ArrayList<Image>){
+        photoViewModel.deleteImages(images)
+    }
+
     fun showImageDetails(image: Image){
         val detailsFragment = DetailsFragment.newInstance(image)
 
@@ -106,6 +113,20 @@ class PhotoActivity : AppCompatActivity() {
 
         Toast.makeText(this, "$image", Toast.LENGTH_SHORT)
                 .show()
+    }
+
+    private fun subscribe(){
+        photoViewModel.getUser().observe(this, Observer {
+            val str = "${it?.firstName} ${it?.lastName}"
+            supportActionBar?.title = str
+        })
+
+        photoViewModel.getData().observe(this, Observer {
+            it?.let {
+                rvAdapter.setData(it)
+                rvAdapter.notifyDataSetChanged()
+            }
+        })
     }
 
     private fun setDrawerLayoutToggle(){
@@ -138,7 +159,7 @@ class PhotoActivity : AppCompatActivity() {
 
                 R.id.photos ->{}
                 R.id.logout ->{
-                    sharedPreferenceHelper.clearSession()
+                    photoViewModel.clearSession()
 
                     startActivity(Intent(this, AuthenticationActivity::class.java))
                     finish()
@@ -183,16 +204,11 @@ class PhotoActivity : AppCompatActivity() {
         }
     }
 
-    fun updateItem(image: Image){
-
-        Toast.makeText(this, "$image", Toast.LENGTH_SHORT)
-                .show()
-    }
-
     private fun setupRecyclerView(){
 
-        rvAdapter = PhotoAdapter(getImages(), this)
-
+        rvAdapter = PhotoAdapter(ArrayList(),this)
+//
+//        rvAdapter = PhotoAdapter(getImages(), this)
         val recyclerView = rvImages
         recyclerView.apply {
             adapter = rvAdapter

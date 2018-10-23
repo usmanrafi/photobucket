@@ -12,7 +12,7 @@ import com.vend.photobucket.R
 import com.vend.photobucket.model.Image
 import io.realm.RealmList
 
-class PhotoAdapter(private val data: RealmList<Image>,
+class PhotoAdapter(private var data: ArrayList<Image>,
                    private val activity: PhotoActivity) : RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
 
     private val selection: ArrayList<Image> = ArrayList()
@@ -31,7 +31,7 @@ class PhotoAdapter(private val data: RealmList<Image>,
         val viewHolder = ViewHolder(view)
 
         viewHolder.parent.setOnClickListener {
-            activity.showImageDetails(data[viewHolder.adapterPosition]!!)
+            activity.showImageDetails(data[viewHolder.adapterPosition])
         }
 
         return viewHolder
@@ -40,13 +40,12 @@ class PhotoAdapter(private val data: RealmList<Image>,
     override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val img: Image = data[position]!!
+        val img: Image = data[position]
 
         holder.tvTitle.text = img.title
         //todo: add image
 
         holder.checkbox.setOnClickListener {
-            //setOnCheckedChangeListener { _, _ ->
             if (selection.contains(img)) {
                 selection.remove(img)
             } else {
@@ -78,20 +77,20 @@ class PhotoAdapter(private val data: RealmList<Image>,
         }
     }
 
+    fun setData(data: ArrayList<Image>){
+        this.data = data
+        notifyDataSetChanged()
+    }
+
     fun selectAll() {
         selection.addAll(data)
         notifyDataSetChanged()
     }
 
-    fun deleteAll() {
-        data.clear()
-        selection.clear()
-        notifyDataSetChanged()
-    }
-
-    fun delete(list: RealmList<Image>? = null): Boolean {
+    fun delete(list: ArrayList<Image>? = null): Boolean {
         if (list != null) {
             data.removeAll(list)
+            activity.deleteImages(list)
             notifyDataSetChanged()
             return true
         } else {
@@ -100,6 +99,7 @@ class PhotoAdapter(private val data: RealmList<Image>,
             }
 
             data.removeAll(selection)
+            activity.deleteImages(selection)
             selection.clear()
             notifyDataSetChanged()
 

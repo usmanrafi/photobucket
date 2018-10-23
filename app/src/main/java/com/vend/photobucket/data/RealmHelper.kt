@@ -1,8 +1,10 @@
 package com.vend.photobucket.data
 
 import com.vend.photobucket.model.Credentials
+import com.vend.photobucket.model.Image
 import com.vend.photobucket.model.User
 import io.realm.Realm
+import io.realm.RealmList
 
 class RealmHelper(var realm: Realm) {
 
@@ -27,5 +29,20 @@ class RealmHelper(var realm: Realm) {
                                      credentials!!.password = newPassword
                                      it.copyToRealmOrUpdate(credentials)
                                  })
+    }
+
+    fun addImage(image: Image){
+        realm.executeTransaction({
+            it.copyToRealmOrUpdate(image)
+                                 })
+    }
+
+    fun deleteImage(image: Image){
+        realm.executeTransaction({realm.where(Image::class.java).equalTo("id", image.id).findFirst()?.deleteFromRealm()})
+//        realm.executeTransaction({image.deleteFromRealm()})
+    }
+
+    fun getImages(phoneNumber: String): List<Image>{
+        return ArrayList(realm.where(Image::class.java).equalTo("phoneNumber", phoneNumber).findAll())
     }
 }

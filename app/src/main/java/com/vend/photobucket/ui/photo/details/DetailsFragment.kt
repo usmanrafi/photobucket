@@ -79,9 +79,8 @@ class DetailsFragment : Fragment() {
             image.description = etDescription.text.toString().trim()
 
             enableEditing(false)
-            // todo: persist
 
-            (activity as PhotoActivity).updateItem(image)
+            (activity as PhotoActivity).updateImage(image)
             activity?.onBackPressed()
         }
     }

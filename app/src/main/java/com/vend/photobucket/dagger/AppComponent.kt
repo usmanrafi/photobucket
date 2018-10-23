@@ -11,6 +11,7 @@ import com.vend.photobucket.ui.authentication.login.LoginViewModelFactory
 import com.vend.photobucket.ui.authentication.register.RegisterFragment
 import com.vend.photobucket.ui.authentication.register.RegisterViewModel
 import com.vend.photobucket.ui.photo.PhotoActivity
+import com.vend.photobucket.ui.photo.addphoto.AddPhotoFragment
 import dagger.Component
 import io.realm.Realm
 import javax.inject.Singleton
@@ -29,6 +30,7 @@ interface AppComponent{
     fun inject(newPasswordFragment: NewPasswordFragment)
     fun inject(homeActivity: PhotoActivity)
     fun inject(authenticationActivity: AuthenticationActivity)
+    fun inject(addPhotoFragment: AddPhotoFragment)
 
 
     fun provideLoginViewModel(): LoginViewModel

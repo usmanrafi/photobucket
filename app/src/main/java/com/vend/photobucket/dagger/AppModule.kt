@@ -2,6 +2,7 @@ package com.vend.photobucket.dagger
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.squareup.picasso.Picasso
 import com.vend.photobucket.application.PhotoApplication
 import com.vend.photobucket.data.RealmHelper
 import com.vend.photobucket.data.SharedPreferenceHelper
@@ -42,4 +43,8 @@ class AppModule(app: PhotoApplication) {
     fun provideSharedPreferenceHelper(sharedPreferences: SharedPreferences) =
             SharedPreferenceHelper(sharedPreferences)
 
+
+    @Provides
+    @Singleton
+    fun providePicasso(context: Context) = Picasso.Builder(context).build()
 }

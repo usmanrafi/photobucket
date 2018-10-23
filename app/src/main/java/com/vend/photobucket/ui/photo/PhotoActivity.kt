@@ -177,12 +177,12 @@ class PhotoActivity : AppCompatActivity() {
     private fun setupButtons(){
 
         btnSelectAll.apply{
-            this.visibility = View.VISIBLE // todo: handle this
+            this.visibility = View.VISIBLE
             setOnClickListener { rvAdapter.selectAll() }
         }
 
         btnDelete.apply {
-            this.visibility = View.VISIBLE // todo: handle this
+            this.visibility = View.VISIBLE
             setOnClickListener {
                 if(!rvAdapter.delete())
                     Toast.makeText(this.context, "Please select image(s) first", Toast.LENGTH_LONG)

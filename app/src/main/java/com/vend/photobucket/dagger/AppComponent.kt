@@ -12,6 +12,7 @@ import com.vend.photobucket.ui.authentication.register.RegisterFragment
 import com.vend.photobucket.ui.authentication.register.RegisterViewModel
 import com.vend.photobucket.ui.photo.PhotoActivity
 import com.vend.photobucket.ui.photo.addphoto.AddPhotoFragment
+import com.vend.photobucket.ui.photo.details.DetailsFragment
 import dagger.Component
 import io.realm.Realm
 import javax.inject.Singleton
@@ -31,11 +32,12 @@ interface AppComponent{
     fun inject(homeActivity: PhotoActivity)
     fun inject(authenticationActivity: AuthenticationActivity)
     fun inject(addPhotoFragment: AddPhotoFragment)
+    fun inject(detailsFragment: DetailsFragment)
 
-
-    fun provideLoginViewModel(): LoginViewModel
-    fun provideRegisterViewModel(): RegisterViewModel
-    fun provideForgotViewModel(): ForgotViewModel
-    fun provideLoginViewModelFactory(): LoginViewModelFactory
-    fun provideRealm(): Realm
+//
+//    fun provideLoginViewModel(): LoginViewModel
+//    fun provideRegisterViewModel(): RegisterViewModel
+//    fun provideForgotViewModel(): ForgotViewModel
+//    fun provideLoginViewModelFactory(): LoginViewModelFactory
+//    fun provideRealm(): Realm
 }

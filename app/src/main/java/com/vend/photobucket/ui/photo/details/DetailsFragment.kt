@@ -9,9 +9,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.squareup.picasso.Picasso
 import com.vend.photobucket.R
+import com.vend.photobucket.application.PhotoApplication
 import com.vend.photobucket.model.Image
 import com.vend.photobucket.ui.photo.PhotoActivity
 import kotlinx.android.synthetic.main.fragment_details.*
+import javax.inject.Inject
 
 private const val ARG_IMAGE = "image"
 
@@ -21,6 +23,8 @@ class DetailsFragment : Fragment() {
 
     private lateinit var image: Image
 
+    @Inject
+    lateinit var picasso: Picasso
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +33,7 @@ class DetailsFragment : Fragment() {
             val arr = param.split("|")
             image = Image(arr[0].toLong(), arr[1], arr[2], arr[3], arr[4])
         }
+        (activity!!.applicationContext as PhotoApplication).getAppComponent().inject(this)
     }
 
 
@@ -42,8 +47,6 @@ class DetailsFragment : Fragment() {
     }
 
     private fun setupView() {
-        //todo: show Image
-        val picasso = Picasso.Builder(this.context!!).build()
         picasso.load("file://${image.path}")
                 .placeholder(R.drawable.twotone_add_a_photo_24)
                 .into(ivImage)

@@ -23,7 +23,7 @@ class AuthenticationActivity : AppCompatActivity() {
         (applicationContext as PhotoApplication).getAppComponent().inject(this)
 
 
-        if(sharedPreferenceHelper.getSession() != "null")
+        if(sharedPreferenceHelper.getSession() != null)
             openPhotoActivity()
         else
             supportFragmentManager

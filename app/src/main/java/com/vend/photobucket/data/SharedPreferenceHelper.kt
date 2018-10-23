@@ -12,10 +12,9 @@ class SharedPreferenceHelper(var sharedPreferences: SharedPreferences) {
         sharedPreferences.edit().putString(this.KEY, phoneNumber).apply()
     }
 
-    fun getSession() = sharedPreferences.getString(this.KEY, "null")!!
+    fun getSession(): String? = sharedPreferences.getString(this.KEY, null)
 
     fun clearSession() {
-//        sharedPreferences.edit().putString(this.KEY, "null").apply()
         sharedPreferences.edit().remove(this.KEY).apply()
     }
 

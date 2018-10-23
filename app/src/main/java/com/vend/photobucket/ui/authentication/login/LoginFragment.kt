@@ -76,7 +76,7 @@ class LoginFragment : Fragment(), LoginClickListener {
         if(flag){
             loginViewModel.startSession()
 
-            startActivity(Intent(activity, PhotoActivity::class.java))
+            startActivity(Intent(appContext, PhotoActivity::class.java))
             activity!!.finish()
         }
     }

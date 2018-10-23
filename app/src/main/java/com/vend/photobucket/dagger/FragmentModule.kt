@@ -4,7 +4,7 @@ import com.vend.photobucket.ui.authentication.forgot.ForgotFragment
 import com.vend.photobucket.ui.authentication.forgot.NewPasswordFragment
 import com.vend.photobucket.ui.authentication.login.LoginFragment
 import com.vend.photobucket.ui.authentication.register.RegisterFragment
-import com.vend.photobucket.ui.photo.AddPhotoFragment
+import com.vend.photobucket.ui.photo.addphoto.AddPhotoFragment
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

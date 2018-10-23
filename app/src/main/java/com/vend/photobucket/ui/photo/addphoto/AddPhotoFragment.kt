@@ -1,4 +1,4 @@
-package com.vend.photobucket.ui.photo
+package com.vend.photobucket.ui.photo.addphoto
 
 
 import android.os.Bundle

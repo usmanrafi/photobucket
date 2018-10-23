@@ -25,5 +25,7 @@
     <string name="hint_title">Title</string>
     <string name="button_text_select_all">Select All</string>
     <string name="button_text_delete">Delete</string>
+    <string name="button_text_share">Share</string>
+    <string name="button_text_save">Save</string>
 
 </resources>

@@ -5,6 +5,8 @@ import io.realm.annotations.PrimaryKey
 
 open class Image(
         @PrimaryKey
+        var id: Long = 0,
+        var phoneNumber: String = "",
         var title: String = "",
         var description: String = "",
         var path: String = ""
@@ -12,8 +14,12 @@ open class Image(
 
     override fun equals(other: Any?): Boolean {
         if(other is Image){
-            return other.title == this.title
+            return other.id == this.id
         }
         return super.equals(other)
+    }
+
+    override fun toString(): String {
+        return "$id|$phoneNumber|$title|$description|$path"
     }
 }

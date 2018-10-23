@@ -9,11 +9,11 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import com.vend.photobucket.R
-import com.vend.photobucket.R.id.btnSelectAll
 import com.vend.photobucket.model.Image
 import io.realm.RealmList
 
-class PhotoAdapter(private val data: RealmList<Image>) : RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
+class PhotoAdapter(private val data: RealmList<Image>,
+                   private val activity: PhotoActivity) : RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
 
     private val selection: ArrayList<Image> = ArrayList()
 
@@ -27,7 +27,14 @@ class PhotoAdapter(private val data: RealmList<Image>) : RecyclerView.Adapter<Ph
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View = LayoutInflater.from(parent.context)
                 .inflate(R.layout.list_item_photo, parent, false)
-        return ViewHolder(view)
+
+        val viewHolder = ViewHolder(view)
+
+        viewHolder.parent.setOnClickListener {
+            activity.showImageDetails(data[viewHolder.adapterPosition]!!)
+        }
+
+        return viewHolder
     }
 
     override fun getItemCount() = data.size
@@ -38,7 +45,8 @@ class PhotoAdapter(private val data: RealmList<Image>) : RecyclerView.Adapter<Ph
         holder.tvTitle.text = img.title
         //todo: add image
 
-        holder.checkbox.setOnClickListener { //setOnCheckedChangeListener { _, _ ->
+        holder.checkbox.setOnClickListener {
+            //setOnCheckedChangeListener { _, _ ->
             if (selection.contains(img)) {
                 selection.remove(img)
             } else {
@@ -56,7 +64,7 @@ class PhotoAdapter(private val data: RealmList<Image>) : RecyclerView.Adapter<Ph
         }
 
 
-        if (selection.isEmpty()){
+        if (selection.isEmpty()) {
             holder.checkbox.visibility = View.GONE
 
         }
@@ -64,32 +72,30 @@ class PhotoAdapter(private val data: RealmList<Image>) : RecyclerView.Adapter<Ph
         if (selection.contains(img)) {
             holder.parent.setBackgroundColor(Color.CYAN)
             holder.checkbox.isChecked = true
-        } else{
+        } else {
             holder.parent.setBackgroundColor(Color.LTGRAY)
             holder.checkbox.isChecked = false
         }
     }
 
-    fun selectAll(){
-        data.forEach{
-            selection.add(it)
-        }
+    fun selectAll() {
+        selection.addAll(data)
         notifyDataSetChanged()
     }
 
-    fun deleteAll(){
+    fun deleteAll() {
         data.clear()
+        selection.clear()
         notifyDataSetChanged()
     }
 
-    fun delete(list: RealmList<Image>? = null): Boolean{
-        if(list != null){
+    fun delete(list: RealmList<Image>? = null): Boolean {
+        if (list != null) {
             data.removeAll(list)
             notifyDataSetChanged()
             return true
-        }
-        else{
-            if(selection.isEmpty()){
+        } else {
+            if (selection.isEmpty()) {
                 return false
             }
 

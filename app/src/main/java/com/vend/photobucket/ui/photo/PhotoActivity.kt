@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.Gravity
 import android.view.Menu
@@ -23,6 +24,7 @@ import com.vend.photobucket.model.Image
 import com.vend.photobucket.model.User
 import com.vend.photobucket.ui.authentication.AuthenticationActivity
 import com.vend.photobucket.ui.photo.addphoto.AddPhotoFragment
+import com.vend.photobucket.ui.photo.details.DetailsFragment
 import io.realm.RealmList
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
@@ -37,7 +39,6 @@ class PhotoActivity : AppCompatActivity() {
     @Inject
     lateinit var realmHelper: RealmHelper
 
-    private lateinit var name: TextView
     private lateinit var navigationView: NavigationView
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var toolbar: Toolbar
@@ -91,6 +92,20 @@ class PhotoActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun showImageDetails(image: Image){
+        val detailsFragment = DetailsFragment.newInstance(image)
+
+        supportFragmentManager
+                .beginTransaction()
+                .replace(android.R.id.content, detailsFragment)
+                .addToBackStack("PhotoActivity")
+                .commit()
+
+
+        Toast.makeText(this, "$image", Toast.LENGTH_SHORT)
+                .show()
     }
 
     private fun setDrawerLayoutToggle(){
@@ -168,42 +183,49 @@ class PhotoActivity : AppCompatActivity() {
         }
     }
 
+    fun updateItem(image: Image){
+
+        Toast.makeText(this, "$image", Toast.LENGTH_SHORT)
+                .show()
+    }
+
     private fun setupRecyclerView(){
 
-        rvAdapter = PhotoAdapter(getImages())
+        rvAdapter = PhotoAdapter(getImages(), this)
 
         val recyclerView = rvImages
         recyclerView.apply {
             adapter = rvAdapter
-//            layoutManager = LinearLayoutManager(context)
-            layoutManager = GridLayoutManager(context,3)
+            layoutManager = LinearLayoutManager(context)
+
+
         }
     }
 
     private fun getImages(): RealmList<Image>{
         val arrayList: RealmList<Image> = RealmList()
 
-        var i = 0
-        arrayList.add(Image("Title ${i++}", "Desc", ""))
-        arrayList.add(Image("Title ${i++}", "Desc", ""))
-        arrayList.add(Image("Title ${i++}", "Desc", ""))
-        arrayList.add(Image("Title ${i++}", "Desc", ""))
-        arrayList.add(Image("Title ${i++}", "Desc", ""))
-        arrayList.add(Image("Title ${i++}", "Desc", ""))
-        arrayList.add(Image("Title ${i++}", "Desc", ""))
-        arrayList.add(Image("Title ${i++}", "Desc", ""))
-        arrayList.add(Image("Title ${i++}", "Desc", ""))
-        arrayList.add(Image("Title ${i++}", "Desc", ""))
-        arrayList.add(Image("Title ${i++}", "Desc", ""))
-        arrayList.add(Image("Title ${i++}", "Desc", ""))
-        arrayList.add(Image("Title ${i++}", "Desc", ""))
-        arrayList.add(Image("Title ${i++}", "Desc", ""))
-        arrayList.add(Image("Title ${i++}", "Desc", ""))
-        arrayList.add(Image("Title ${i++}", "Desc", ""))
-        arrayList.add(Image("Title ${i++}", "Desc", ""))
-        arrayList.add(Image("Title ${i++}", "Desc", ""))
-        arrayList.add(Image("Title ${i++}", "Desc", ""))
-        arrayList.add(Image("Title ${i++}", "Desc", ""))
+        var i:Long = 0
+        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
+        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
+        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
+        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
+        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
+        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
+        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
+        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
+        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
+        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
+        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
+        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
+        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
+        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
+        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
+        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
+        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
+        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
+        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
+        arrayList.add(Image(i++,"111111111","Title $i", "Desc", ""))
 
         return arrayList
     }

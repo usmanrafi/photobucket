@@ -7,7 +7,7 @@ import com.vend.photobucket.data.RealmHelper
 import com.vend.photobucket.data.SharedPreferenceHelper
 
 class ForgotViewModel(var realmHelper: RealmHelper,
-                      var sharedPreferenceHelper: SharedPreferenceHelper): ViewModel(){
+                      var sharedPreferenceHelper: SharedPreferenceHelper) : ViewModel() {
 
     private var userExists = MutableLiveData<Boolean>()
     fun getLiveUserExistsFlag() = userExists as LiveData<Boolean>
@@ -33,25 +33,24 @@ class ForgotViewModel(var realmHelper: RealmHelper,
         this.confirmPassword = confirmPassword
     }
 
-    fun checkUser(){
+    fun checkUser() {
         val credentials = realmHelper.getCredentials(phoneNumber)
         userExists.value = credentials != null
     }
 
-    fun changePassword(){
-        if( (newPassword.length >= 5) &&
+    fun changePassword() {
+        if ((newPassword.length >= 5) &&
                 (confirmPassword.length >= 5) &&
-                (newPassword == confirmPassword)){
+                (newPassword == confirmPassword)) {
 
             realmHelper.updateUserPassword(phoneNumber, newPassword)
             startSession()
             changeVerified.value = true
-        }
-        else
+        } else
             changeVerified.value = false
     }
 
-    private fun startSession(){
+    private fun startSession() {
         sharedPreferenceHelper.putSession(this.phoneNumber)
     }
 }

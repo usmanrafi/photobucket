@@ -16,7 +16,7 @@ import com.vend.photobucket.databinding.NewPasswordDataBinding
 import com.vend.photobucket.ui.photo.PhotoActivity
 import javax.inject.Inject
 
-class NewPasswordFragment: Fragment(), NewPasswordClickListener {
+class NewPasswordFragment : Fragment(), NewPasswordClickListener {
 
     private lateinit var binding: NewPasswordDataBinding
 
@@ -48,18 +48,18 @@ class NewPasswordFragment: Fragment(), NewPasswordClickListener {
         binding.clickListener = this
     }
 
-    private fun subscribe(){
+    private fun subscribe() {
         forgotViewModel.getLiveChangeVerified().observe(this, Observer {
             changeVerified(it!!)
         })
     }
 
-    private fun changeVerified(flag: Boolean){
-        if(flag)
+    private fun changeVerified(flag: Boolean) {
+        if (flag)
             openPhotoActivity()
     }
 
-    private fun openPhotoActivity(){
+    private fun openPhotoActivity() {
         startActivity(Intent(activity, PhotoActivity::class.java))
         activity!!.finish()
     }

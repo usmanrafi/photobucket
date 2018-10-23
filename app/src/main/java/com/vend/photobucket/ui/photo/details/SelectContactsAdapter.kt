@@ -8,19 +8,11 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import com.vend.photobucket.R
-import com.vend.photobucket.model.Image
-import android.content.Intent
-import android.net.Uri
-import android.os.Environment
-import android.support.v4.content.ContextCompat.startActivity
-import android.os.Environment.getExternalStorageDirectory
-import com.vend.photobucket.ui.photo.PhotoActivity
-import java.io.File
 
 
 class SelectContactsAdapter(private var data: ArrayList<String>,
                             private val fragment: SelectContactsFragment)
-    : RecyclerView.Adapter<SelectContactsAdapter.ViewHolder>(){
+    : RecyclerView.Adapter<SelectContactsAdapter.ViewHolder>() {
 
     private val selection: ArrayList<String> = ArrayList()
 
@@ -61,25 +53,24 @@ class SelectContactsAdapter(private var data: ArrayList<String>,
         val contactInfo: TextView = contactView.findViewById(R.id.tvContactInfo)
     }
 
-    fun selectAll(){
+    fun selectAll() {
         selection.addAll(data)
         notifyDataSetChanged()
     }
 
-    fun send(): Boolean{
-        if(selection.isEmpty())
+    fun send(): Boolean {
+        if (selection.isEmpty())
             return false
-
         else
             sendImage()
         return true
     }
 
-    private fun sendImage(){
+    private fun sendImage() {
         fragment.sendImage(selection)
     }
 
-    private fun setListeners(holder: ViewHolder, contact: String){
+    private fun setListeners(holder: ViewHolder, contact: String) {
         holder.checkbox.setOnClickListener {
             if (selection.contains(contact)) {
                 selection.remove(contact)

@@ -6,7 +6,6 @@ import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.squareup.picasso.Picasso
 import com.vend.photobucket.R
 import com.vend.photobucket.application.PhotoApplication
@@ -97,7 +96,7 @@ class DetailsFragment : Fragment() {
                     .commit()
         }
 
-        btnSave.setOnClickListener{
+        btnSave.setOnClickListener {
             image.title = etTitle.text.toString().trim()
             image.description = etDescription.text.toString().trim()
 

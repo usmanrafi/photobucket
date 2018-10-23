@@ -91,11 +91,11 @@ class AddPhotoFragment : Fragment() {
         }
     }
 
-    private fun showSelectionDialog(){
+    private fun showSelectionDialog() {
         val pictureDialog = AlertDialog.Builder(this.context!!)
         pictureDialog.setTitle("Select Action")
         val pictureDialogItems = arrayOf("Select photo from gallery", "Capture photo from camera")
-        pictureDialog.setItems(pictureDialogItems){ _, which ->
+        pictureDialog.setItems(pictureDialogItems) { _, which ->
             when (which) {
                 0 -> choosePhotoFromGallery()
                 1 -> takePhotoFromCamera()
@@ -119,28 +119,23 @@ class AddPhotoFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == GALLERY)
-        {
-            data?.let{
+        if (requestCode == GALLERY) {
+            data?.let {
                 val contentURI = it.data
-                try
-                {
+                try {
                     val bitmap = MediaStore.Images.Media
                             .getBitmap(this.context?.contentResolver, contentURI)
                     path = saveImage(bitmap)
 
                     Toast.makeText(this.context, "Image Saved!", Toast.LENGTH_SHORT).show()
                     btnSelectPhoto!!.setImageBitmap(bitmap)
-                }
-                catch (e: IOException) {
+                } catch (e: IOException) {
                     e.printStackTrace()
                     Toast.makeText(this.context, "Failed!", Toast.LENGTH_SHORT).show()
                 }
 
             }
-        }
-        else if (requestCode == CAMERA)
-        {
+        } else if (requestCode == CAMERA) {
             val thumbnail = data?.extras!!.get("data") as Bitmap
             btnSelectPhoto!!.setImageBitmap(thumbnail)
             path = saveImage(thumbnail)
@@ -148,7 +143,7 @@ class AddPhotoFragment : Fragment() {
         }
     }
 
-    fun saveImage(myBitmap: Bitmap):String {
+    fun saveImage(myBitmap: Bitmap): String {
         val IMAGE_DIRECTORY = "/photobucket"
 
         val bytes = ByteArrayOutputStream()
@@ -159,7 +154,7 @@ class AddPhotoFragment : Fragment() {
         if (!wallpaperDirectory.exists())
             wallpaperDirectory.mkdirs()
 
-        try{
+        try {
             val name = "${binding.etImageTitle.text}+${UUID.randomUUID().mostSignificantBits}.jpg"
             val f = File(wallpaperDirectory, name)
             f.createNewFile()
@@ -172,8 +167,7 @@ class AddPhotoFragment : Fragment() {
 
             addPhotoViewModel.setImageFlag(true)
             return f.absolutePath
-        }
-        catch (e1: IOException) {
+        } catch (e1: IOException) {
             e1.printStackTrace()
         }
 
@@ -184,41 +178,39 @@ class AddPhotoFragment : Fragment() {
         if (success) {
             val activity = activity as PhotoActivity
             activity.addImage(binding.etImageTitle.text.toString().trim(),
-                                                 binding.etImageDescription.text.toString().trim(),
-                                                 path)
+                              binding.etImageDescription.text.toString().trim(),
+                              path)
 
             activity.onBackPressed()
-        }
-        else
+        } else
             Toast.makeText(this.context, "Please provide complete information", Toast.LENGTH_SHORT)
                     .show()
     }
 
     private fun checkForPermissions() {
-        if(Build.VERSION.SDK_INT >= 23 &&
+        if (Build.VERSION.SDK_INT >= 23 &&
                 checkSelfPermission(this.context!!, android.Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED
                 && checkSelfPermission(this.context!!, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED){
+                != PackageManager.PERMISSION_GRANTED) {
 
             requestPermissions()
-        }
-        else
+        } else
             showSelectionDialog()
     }
 
-    private fun requestPermissions(){
+    private fun requestPermissions() {
         requestPermissions(arrayOf(
                 android.Manifest.permission.CAMERA,
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-        ),PERMISSIONS)
+        ), PERMISSIONS)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if(requestCode == PERMISSIONS){
-            if(!grantResults.isEmpty()
+        if (requestCode == PERMISSIONS) {
+            if (!grantResults.isEmpty()
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED)
                 showSelectionDialog()

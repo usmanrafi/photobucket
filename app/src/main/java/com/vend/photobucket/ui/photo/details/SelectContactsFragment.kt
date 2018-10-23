@@ -7,13 +7,11 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.provider.ContactsContract
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.PermissionChecker
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,13 +59,13 @@ class SelectContactsFragment : Fragment() {
                 }
     }
 
-    fun sendImage(list: ArrayList<String>){
+    fun sendImage(list: ArrayList<String>) {
         val path = Uri.fromFile(File(image.path))
 
         val emailIntent = Intent(Intent.ACTION_SEND)
         emailIntent.type = "vnd.android.cursor.dir/email"
 
-        val to = Array(list.size,{ _ -> ""})
+        val to = Array(list.size, { _ -> "" })
         var i = 0
         list.forEach {
             to[i++] = (it.subSequence(it.indexOf('(') + 1, it.indexOf(')'))).toString()
@@ -123,7 +121,7 @@ class SelectContactsFragment : Fragment() {
                     val email = cur1.getString(cur1.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA))
                     if (email != null) {
                         val contact = "$name ($email)"
-                        if(!names.contains(contact))
+                        if (!names.contains(contact))
                             names.add(contact)
                     }
                 }
@@ -134,15 +132,15 @@ class SelectContactsFragment : Fragment() {
     }
 
     private fun checkForPermissions() {
-        if(Build.VERSION.SDK_INT >= 23 &&
+        if (Build.VERSION.SDK_INT >= 23 &&
                 PermissionChecker.checkSelfPermission(this.context!!, Manifest.permission.READ_CONTACTS)
-                != PackageManager.PERMISSION_GRANTED ){
+                != PackageManager.PERMISSION_GRANTED) {
             requestPermissions()
         }
     }
 
 
-    private fun requestPermissions(){
+    private fun requestPermissions() {
         requestPermissions(arrayOf(
                 android.Manifest.permission.READ_CONTACTS), PERMISSIONS)
     }
@@ -150,8 +148,8 @@ class SelectContactsFragment : Fragment() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if(requestCode == PERMISSIONS){
-            if(grantResults.isEmpty()
+        if (requestCode == PERMISSIONS) {
+            if (grantResults.isEmpty()
                     || grantResults[0] == PackageManager.PERMISSION_DENIED)
                 requestPermissions()
         }

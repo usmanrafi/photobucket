@@ -3,17 +3,13 @@ package com.vend.photobucket.ui.authentication.register
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.util.Log
-import com.vend.photobucket.application.PhotoApplication
 import com.vend.photobucket.data.RealmHelper
 import com.vend.photobucket.data.SharedPreferenceHelper
 import com.vend.photobucket.model.Credentials
 import com.vend.photobucket.model.User
-import io.realm.Realm
-import javax.inject.Inject
 
 class RegisterViewModel(var realmHelper: RealmHelper,
-                        var sharedPreferenceHelper: SharedPreferenceHelper): ViewModel(){
+                        var sharedPreferenceHelper: SharedPreferenceHelper) : ViewModel() {
 
     private val validationFlag = MutableLiveData<Boolean>()
 
@@ -22,41 +18,41 @@ class RegisterViewModel(var realmHelper: RealmHelper,
     private var phoneNumber = ""
     private var password = ""
     private var confirmPassword = ""
-    
+
     fun getValidationFlag() = validationFlag as LiveData<Boolean>
-    
+
     fun getFirstName() = firstName
-    fun setFirstName(firstName: String){
+    fun setFirstName(firstName: String) {
         this.firstName = firstName
-        
+
     }
 
     fun getLastName() = lastName
-    fun setLastName(lastName: String){
+    fun setLastName(lastName: String) {
         this.lastName = lastName
     }
 
     fun getPhoneNumber() = phoneNumber
-    fun setPhoneNumber(phoneNumber: String){
+    fun setPhoneNumber(phoneNumber: String) {
         this.phoneNumber = phoneNumber
     }
 
     fun getPassword() = password
-    fun setPassword(password: String){
+    fun setPassword(password: String) {
         this.password = password
     }
 
     fun getConfirmPassword() = confirmPassword
-    fun setConfirmPassword(confirmPassword: String){
+    fun setConfirmPassword(confirmPassword: String) {
         this.confirmPassword = confirmPassword
     }
 
-    fun validate(){
+    fun validate() {
         validationFlag.value = validateInfo()
     }
-    
-    private fun validateInfo(): Boolean{
-        if((firstName.length >= 3) &&
+
+    private fun validateInfo(): Boolean {
+        if ((firstName.length >= 3) &&
                 (lastName.length >= 3) &&
                 (phoneNumber.length >= 8) &&
                 (password.length >= 5) &&
@@ -66,7 +62,7 @@ class RegisterViewModel(var realmHelper: RealmHelper,
         return false
     }
 
-    fun registerUser(){
+    fun registerUser() {
 
         val user = User(this.phoneNumber,
                         this.firstName,
@@ -78,7 +74,7 @@ class RegisterViewModel(var realmHelper: RealmHelper,
         realmHelper.createUser(user, credentials)
     }
 
-    fun startSession(){
+    fun startSession() {
         sharedPreferenceHelper.putSession(this.phoneNumber)
     }
 }

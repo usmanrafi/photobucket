@@ -11,7 +11,6 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.vend.photobucket.R
 import com.vend.photobucket.model.Image
-import io.realm.RealmList
 
 class PhotoAdapter(private var data: ArrayList<Image>,
                    private val activity: PhotoActivity) : RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
@@ -82,7 +81,7 @@ class PhotoAdapter(private var data: ArrayList<Image>,
         }
     }
 
-    fun setData(data: ArrayList<Image>){
+    fun setData(data: ArrayList<Image>) {
         this.data = data
         notifyDataSetChanged()
     }

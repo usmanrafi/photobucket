@@ -1,8 +1,8 @@
 package com.vend.photobucket.ui.authentication
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import com.vend.photobucket.application.PhotoApplication
 import com.vend.photobucket.data.SharedPreferenceHelper
 import com.vend.photobucket.ui.authentication.login.LoginFragment
@@ -23,16 +23,16 @@ class AuthenticationActivity : AppCompatActivity() {
         (applicationContext as PhotoApplication).getAppComponent().inject(this)
 
 
-        if(sharedPreferenceHelper.getSession() != null)
+        if (sharedPreferenceHelper.getSession() != null)
             openPhotoActivity()
         else
             supportFragmentManager
-                .beginTransaction()
-                .replace(android.R.id.content, loginFragment)
-                .commit()
+                    .beginTransaction()
+                    .replace(android.R.id.content, loginFragment)
+                    .commit()
     }
 
-    private fun openPhotoActivity(){
+    private fun openPhotoActivity() {
         startActivity(Intent(this, PhotoActivity::class.java))
         finish()
     }

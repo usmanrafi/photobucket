@@ -40,7 +40,7 @@ class LoginViewModel(var realmHelper: RealmHelper,
         return false
     }
 
-    fun startSession(){
+    fun startSession() {
         sharedPreferenceHelper.putSession(phoneNumber)
     }
 }

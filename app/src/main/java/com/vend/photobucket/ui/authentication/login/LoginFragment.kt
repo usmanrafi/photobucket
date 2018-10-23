@@ -73,7 +73,7 @@ class LoginFragment : Fragment(), LoginClickListener {
 
 
     private fun loginSuccessful(flag: Boolean) {
-        if(flag){
+        if (flag) {
             loginViewModel.startSession()
 
             startActivity(Intent(appContext, PhotoActivity::class.java))

@@ -7,13 +7,11 @@ import com.vend.photobucket.data.RealmHelper
 import com.vend.photobucket.data.SharedPreferenceHelper
 import com.vend.photobucket.model.Image
 import com.vend.photobucket.model.User
-import io.realm.RealmList
 import java.util.*
-import kotlin.collections.ArrayList
 
 class PhotoViewModel(var sharedPreferenceHelper: SharedPreferenceHelper,
                      var realmHelper: RealmHelper)
-    : ViewModel(){
+    : ViewModel() {
 
     private val user = MutableLiveData<User>()
     private val data = MutableLiveData<ArrayList<Image>>()
@@ -21,9 +19,9 @@ class PhotoViewModel(var sharedPreferenceHelper: SharedPreferenceHelper,
     fun getUser() = user as LiveData<User>
     fun getData() = data as LiveData<ArrayList<Image>>
 
-    fun checkSession(){
+    fun checkSession() {
         val phoneNumber = sharedPreferenceHelper.getSession()
-        phoneNumber?.let{
+        phoneNumber?.let {
             user.value = realmHelper.getUser(it)
 
             val list: ArrayList<Image> = realmHelper.getImages(it) as ArrayList
@@ -37,7 +35,7 @@ class PhotoViewModel(var sharedPreferenceHelper: SharedPreferenceHelper,
         sharedPreferenceHelper.clearSession()
     }
 
-    fun addImage(title: String, description: String, path: String){
+    fun addImage(title: String, description: String, path: String) {
         val image = Image(UUID.randomUUID().leastSignificantBits,
                           user.value!!.phoneNumber,
                           title,
@@ -48,13 +46,13 @@ class PhotoViewModel(var sharedPreferenceHelper: SharedPreferenceHelper,
         data.value?.add(image)
     }
 
-    fun updateImage(image: Image){
+    fun updateImage(image: Image) {
         realmHelper.addImage(image)
         data.value?.set(data.value?.indexOf(image)!!, image)
     }
 
-    fun deleteImages(images: ArrayList<Image>){
-        images.forEach{
+    fun deleteImages(images: ArrayList<Image>) {
+        images.forEach {
             data.value?.remove(it)
             realmHelper.deleteImage(it)
         }

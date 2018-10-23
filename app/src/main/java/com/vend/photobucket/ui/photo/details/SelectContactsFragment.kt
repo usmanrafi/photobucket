@@ -45,7 +45,7 @@ class SelectContactsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setupRecyclerView()
+        checkForPermissions()
         setupButtons()
     }
 
@@ -78,7 +78,6 @@ class SelectContactsFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        checkForPermissions()
 
         rvAdapter = SelectContactsAdapter(getContacts(), this)
 
@@ -149,8 +148,10 @@ class SelectContactsFragment : Fragment() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         if (requestCode == PERMISSIONS) {
-            if (grantResults.isEmpty()
-                    || grantResults[0] == PackageManager.PERMISSION_DENIED)
+            if (!grantResults.isEmpty()
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                setupRecyclerView()
+            else
                 requestPermissions()
         }
     }

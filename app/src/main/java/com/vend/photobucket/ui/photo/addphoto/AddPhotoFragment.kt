@@ -1,6 +1,7 @@
 package com.vend.photobucket.ui.photo.addphoto
 
 
+import android.app.Activity.RESULT_OK
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -119,31 +120,34 @@ class AddPhotoFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == GALLERY) {
-            data?.let {
-                val contentURI = it.data
-                try {
-                    val bitmap = MediaStore.Images.Media
-                            .getBitmap(this.context?.contentResolver, contentURI)
-                    path = saveImage(bitmap)
+        if(resultCode == RESULT_OK){
+            if (requestCode == GALLERY) {
+                data?.let {
+                    val contentURI = it.data
+                    try {
+                        val bitmap = MediaStore.Images.Media
+                                .getBitmap(this.context?.contentResolver, contentURI)
+                        path = saveImage(bitmap)
 
-                    Toast.makeText(this.context, "Image Saved!", Toast.LENGTH_SHORT).show()
-                    btnSelectPhoto!!.setImageBitmap(bitmap)
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                    Toast.makeText(this.context, "Failed!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this.context, "Image Saved!", Toast.LENGTH_SHORT).show()
+                        btnSelectPhoto!!.setImageBitmap(bitmap)
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                        Toast.makeText(this.context, "Failed!", Toast.LENGTH_SHORT).show()
+                    }
+
                 }
-
+            } else if (requestCode == CAMERA) {
+                val thumbnail = data?.extras!!.get("data") as Bitmap
+                btnSelectPhoto!!.setImageBitmap(thumbnail)
+                path = saveImage(thumbnail)
+                Toast.makeText(this.context, "Image Saved!", Toast.LENGTH_SHORT).show()
             }
-        } else if (requestCode == CAMERA) {
-            val thumbnail = data?.extras!!.get("data") as Bitmap
-            btnSelectPhoto!!.setImageBitmap(thumbnail)
-            path = saveImage(thumbnail)
-            Toast.makeText(this.context, "Image Saved!", Toast.LENGTH_SHORT).show()
         }
+
     }
 
-    fun saveImage(myBitmap: Bitmap): String {
+    private fun saveImage(myBitmap: Bitmap): String {
         val IMAGE_DIRECTORY = "/photobucket"
 
         val bytes = ByteArrayOutputStream()

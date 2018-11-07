@@ -136,6 +136,9 @@ class SelectContactsFragment : Fragment() {
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions()
         }
+        else{
+            setupRecyclerView()
+        }
     }
 
 

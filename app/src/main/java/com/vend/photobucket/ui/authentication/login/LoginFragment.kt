@@ -34,11 +34,6 @@ class LoginFragment : Fragment(), LoginClickListener {
     @Inject
     lateinit var appContext: Context
 
-    @Inject
-    lateinit var registerFragment: RegisterFragment
-    @Inject
-    lateinit var forgotFragment: ForgotFragment
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity!!.applicationContext as PhotoApplication).getAppComponent().inject(this)
@@ -59,14 +54,14 @@ class LoginFragment : Fragment(), LoginClickListener {
 
     override fun openRegisterScreen(view: View) {
         fragmentManager?.beginTransaction()
-                ?.replace(android.R.id.content, registerFragment)
+                ?.replace(android.R.id.content, RegisterFragment())
                 ?.addToBackStack("LoginFragment")
                 ?.commit()
     }
 
     override fun openForgotScreen(view: View) {
         fragmentManager?.beginTransaction()
-                ?.replace(android.R.id.content, forgotFragment)
+                ?.replace(android.R.id.content, ForgotFragment())
                 ?.addToBackStack("LoginFragment")
                 ?.commit()
     }

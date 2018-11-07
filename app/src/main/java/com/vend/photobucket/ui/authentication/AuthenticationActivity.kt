@@ -14,9 +14,6 @@ class AuthenticationActivity : AppCompatActivity() {
     @Inject
     lateinit var sharedPreferenceHelper: SharedPreferenceHelper
 
-    @Inject
-    lateinit var loginFragment: LoginFragment
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -28,7 +25,7 @@ class AuthenticationActivity : AppCompatActivity() {
         else
             supportFragmentManager
                     .beginTransaction()
-                    .replace(android.R.id.content, loginFragment)
+                    .replace(android.R.id.content, LoginFragment())
                     .commit()
     }
 

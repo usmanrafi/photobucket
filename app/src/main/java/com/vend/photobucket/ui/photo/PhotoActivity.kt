@@ -26,11 +26,12 @@ import com.vend.photobucket.application.PhotoApplication
 import com.vend.photobucket.model.Image
 import com.vend.photobucket.ui.authentication.AuthenticationActivity
 import com.vend.photobucket.ui.photo.addphoto.AddPhotoFragment
+import com.vend.photobucket.ui.photo.addphoto.DatabaseImageListener
 import com.vend.photobucket.ui.photo.details.DetailsFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
-class PhotoActivity : AppCompatActivity(), PhotoAdapterListener {
+class PhotoActivity : AppCompatActivity(), PhotoAdapterListener, DatabaseImageListener {
     private val PERMISSIONS = 30
 
     @Inject
@@ -90,9 +91,8 @@ class PhotoActivity : AppCompatActivity(), PhotoAdapterListener {
         return super.onOptionsItemSelected(item)
     }
 
-    fun addImage(title: String, description: String, path: String) {
-        photoViewModel.addImage(title, description, path)
-        rvAdapter.notifyDataSetChanged()
+    override fun imageAdded() {
+        photoViewModel.checkSession()
     }
 
     fun updateImage(image: Image) {

@@ -25,25 +25,12 @@ class PhotoViewModel(var sharedPreferenceHelper: SharedPreferenceHelper,
             user.value = realmHelper.getUser(it)
 
             val list: ArrayList<Image> = realmHelper.getImages(it) as ArrayList
-
-//            data.value = if(list.isEmpty()) RealmList() else list
             data.value = list
         }
     }
 
     fun clearSession() {
         sharedPreferenceHelper.clearSession()
-    }
-
-    fun addImage(title: String, description: String, path: String) {
-        val image = Image(UUID.randomUUID().leastSignificantBits,
-                          user.value!!.phoneNumber,
-                          title,
-                          description,
-                          path)
-
-        realmHelper.addImage(image)
-        data.value?.add(image)
     }
 
     fun updateImage(image: Image) {

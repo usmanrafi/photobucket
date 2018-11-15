@@ -3,8 +3,14 @@ package com.vend.photobucket.ui.photo.addphoto
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import com.vend.photobucket.data.RealmHelper
+import com.vend.photobucket.data.SharedPreferenceHelper
+import com.vend.photobucket.model.Image
+import com.vend.photobucket.model.User
+import java.util.*
 
-class AddPhotoViewModel : ViewModel() {
+class AddPhotoViewModel(var sharedPreferenceHelper: SharedPreferenceHelper,
+                        var realmHelper: RealmHelper) : ViewModel() {
 
     private var title: String = ""
     private var description: String = ""
@@ -34,6 +40,24 @@ class AddPhotoViewModel : ViewModel() {
 
     fun validate() {
         validationFlag.value = validateDetails()
+    }
+
+    fun addImage(title: String, description: String, path: String) {
+
+        var user: User? = null
+
+        val phoneNumber = sharedPreferenceHelper.getSession()
+        phoneNumber?.let {
+            user = realmHelper.getUser(it)
+        }
+
+        val image = Image(UUID.randomUUID().leastSignificantBits,
+                          user!!.phoneNumber,
+                          title,
+                          description,
+                          path)
+
+        realmHelper.addImage(image)
     }
 
     private fun validateDetails(): Boolean =

@@ -33,7 +33,8 @@ class ViewModelModule {
 
     @Provides
     @Singleton
-    fun provideAddPhotoViewModel() = AddPhotoViewModel()
+    fun provideAddPhotoViewModel(sharedPreferenceHelper: SharedPreferenceHelper,
+                                 realmHelper: RealmHelper) = AddPhotoViewModel(sharedPreferenceHelper, realmHelper)
 
     @Provides
     @Singleton

@@ -19,11 +19,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-
 import com.vend.photobucket.R
 import com.vend.photobucket.application.PhotoApplication
 import com.vend.photobucket.databinding.AddPhotoDataBinding
-import com.vend.photobucket.ui.photo.PhotoActivity
 import kotlinx.android.synthetic.main.fragment_add_photo.*
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -120,7 +118,7 @@ class AddPhotoFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK) {
             if (requestCode == GALLERY) {
                 data?.let {
                     val contentURI = it.data
@@ -180,12 +178,14 @@ class AddPhotoFragment : Fragment() {
 
     private fun additionSuccessful(success: Boolean) {
         if (success) {
-            val activity = activity as PhotoActivity
-            activity.addImage(binding.etImageTitle.text.toString().trim(),
-                              binding.etImageDescription.text.toString().trim(),
-                              path)
+            val databaseImageListener = activity as DatabaseImageListener
+            addPhotoViewModel.addImage(binding.etImageTitle.text.toString().trim(),
+                                       binding.etImageDescription.text.toString().trim(),
+                                       path)
 
-            activity.onBackPressed()
+            databaseImageListener.imageAdded()
+
+            closeFragment()
         } else
             Toast.makeText(this.context, "Please provide complete information", Toast.LENGTH_SHORT)
                     .show()
@@ -223,4 +223,12 @@ class AddPhotoFragment : Fragment() {
         }
     }
 
+    private fun closeFragment() {
+        fragmentManager!!.beginTransaction()
+                .remove(this)
+                .commit()
+
+        fragmentManager!!.popBackStack()
+        addPhotoViewModel.setImageFlag(false)
+    }
 }

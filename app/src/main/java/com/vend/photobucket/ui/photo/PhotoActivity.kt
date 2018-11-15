@@ -30,7 +30,7 @@ import com.vend.photobucket.ui.photo.details.DetailsFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
-class PhotoActivity : AppCompatActivity(), AdapterListener {
+class PhotoActivity : AppCompatActivity(), PhotoAdapterListener {
     private val PERMISSIONS = 30
 
     @Inject
@@ -206,7 +206,7 @@ class PhotoActivity : AppCompatActivity(), AdapterListener {
 
     private fun setupRecyclerView() {
 
-        rvAdapter = PhotoAdapter(ArrayList(), this as AdapterListener, this as Context)
+        rvAdapter = PhotoAdapter(ArrayList(), this as PhotoAdapterListener, this as Context)
 
         val recyclerView = rvImages
         recyclerView.apply {

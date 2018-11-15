@@ -14,7 +14,7 @@ import com.vend.photobucket.R
 import com.vend.photobucket.model.Image
 
 class PhotoAdapter(private var data: ArrayList<Image>,
-                   private val adapterListener: AdapterListener,
+                   private val photoAdapterListener: PhotoAdapterListener,
                    private val context: Context) : RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
 
     private val selection: ArrayList<Image> = ArrayList()
@@ -33,7 +33,7 @@ class PhotoAdapter(private var data: ArrayList<Image>,
         val viewHolder = ViewHolder(view)
 
         viewHolder.parent.setOnClickListener {
-            adapterListener.showImageDetails(data[viewHolder.adapterPosition])
+            photoAdapterListener.showImageDetails(data[viewHolder.adapterPosition])
         }
 
         return viewHolder
@@ -96,7 +96,7 @@ class PhotoAdapter(private var data: ArrayList<Image>,
     fun delete(list: ArrayList<Image>? = null): Boolean {
         if (list != null) {
             data.removeAll(list)
-            adapterListener.deleteImages(list)
+            photoAdapterListener.deleteImages(list)
             notifyDataSetChanged()
             return true
         } else {
@@ -105,7 +105,7 @@ class PhotoAdapter(private var data: ArrayList<Image>,
             }
 
             data.removeAll(selection)
-            adapterListener.deleteImages(selection)
+            photoAdapterListener.deleteImages(selection)
             selection.clear()
             notifyDataSetChanged()
 

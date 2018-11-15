@@ -25,7 +25,7 @@ import java.io.File
 private const val ARG_IMAGE = "image"
 private const val PERMISSIONS = 30
 
-class SelectContactsFragment : Fragment() {
+class SelectContactsFragment : Fragment(), ContactsAdapterListener {
 
     private lateinit var image: Image
     private lateinit var rvAdapter: SelectContactsAdapter
@@ -59,7 +59,7 @@ class SelectContactsFragment : Fragment() {
                 }
     }
 
-    fun sendImage(list: ArrayList<String>) {
+    override fun sendImage(list: ArrayList<String>) {
         val path = Uri.fromFile(File(image.path))
 
         val emailIntent = Intent(Intent.ACTION_SEND)
@@ -79,7 +79,7 @@ class SelectContactsFragment : Fragment() {
 
     private fun setupRecyclerView() {
 
-        rvAdapter = SelectContactsAdapter(getContacts(), this)
+        rvAdapter = SelectContactsAdapter(getContacts(), this as ContactsAdapterListener)
 
         val recyclerView = rvContacts
         recyclerView.apply {

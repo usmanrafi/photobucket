@@ -11,7 +11,7 @@ import com.vend.photobucket.R
 
 
 class SelectContactsAdapter(private var data: ArrayList<String>,
-                            private val fragment: SelectContactsFragment)
+                            private val contactsAdapterListener: ContactsAdapterListener)
     : RecyclerView.Adapter<SelectContactsAdapter.ViewHolder>() {
 
     private val selection: ArrayList<String> = ArrayList()
@@ -67,7 +67,7 @@ class SelectContactsAdapter(private var data: ArrayList<String>,
     }
 
     private fun sendImage() {
-        fragment.sendImage(selection)
+        contactsAdapterListener.sendImage(selection)
     }
 
     private fun setListeners(holder: ViewHolder, contact: String) {

@@ -3,6 +3,7 @@ package com.vend.photobucket.ui.photo
 import android.Manifest
 import android.annotation.TargetApi
 import android.arch.lifecycle.Observer
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -29,7 +30,7 @@ import com.vend.photobucket.ui.photo.details.DetailsFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
-class PhotoActivity : AppCompatActivity() {
+class PhotoActivity : AppCompatActivity(), AdapterListener {
     private val PERMISSIONS = 30
 
     @Inject
@@ -99,11 +100,11 @@ class PhotoActivity : AppCompatActivity() {
         rvAdapter.notifyDataSetChanged()
     }
 
-    fun deleteImages(images: ArrayList<Image>) {
+    override fun deleteImages(images: ArrayList<Image>) {
         photoViewModel.deleteImages(images)
     }
 
-    fun showImageDetails(image: Image) {
+    override fun showImageDetails(image: Image) {
         val detailsFragment = DetailsFragment.newInstance(image)
 
         supportFragmentManager
@@ -205,14 +206,12 @@ class PhotoActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
 
-        rvAdapter = PhotoAdapter(ArrayList(), this)
+        rvAdapter = PhotoAdapter(ArrayList(), this as AdapterListener, this as Context)
 
         val recyclerView = rvImages
         recyclerView.apply {
             adapter = rvAdapter
             layoutManager = LinearLayoutManager(context)
-
-
         }
     }
 

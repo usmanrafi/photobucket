@@ -1,5 +1,6 @@
 package com.vend.photobucket.ui.photo
 
+import android.content.Context
 import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -13,7 +14,8 @@ import com.vend.photobucket.R
 import com.vend.photobucket.model.Image
 
 class PhotoAdapter(private var data: ArrayList<Image>,
-                   private val activity: PhotoActivity) : RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
+                   private val adapterListener: AdapterListener,
+                   private val context: Context) : RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
 
     private val selection: ArrayList<Image> = ArrayList()
 
@@ -31,7 +33,7 @@ class PhotoAdapter(private var data: ArrayList<Image>,
         val viewHolder = ViewHolder(view)
 
         viewHolder.parent.setOnClickListener {
-            activity.showImageDetails(data[viewHolder.adapterPosition])
+            adapterListener.showImageDetails(data[viewHolder.adapterPosition])
         }
 
         return viewHolder
@@ -44,7 +46,7 @@ class PhotoAdapter(private var data: ArrayList<Image>,
 
         holder.tvTitle.text = img.title
 
-        val picasso = Picasso.Builder(this.activity).build()
+        val picasso = Picasso.Builder(context).build()
         picasso.load("file://${img.path}")
                 .placeholder(R.drawable.twotone_add_a_photo_24)
                 .into(holder.imageView)
@@ -94,7 +96,7 @@ class PhotoAdapter(private var data: ArrayList<Image>,
     fun delete(list: ArrayList<Image>? = null): Boolean {
         if (list != null) {
             data.removeAll(list)
-            activity.deleteImages(list)
+            adapterListener.deleteImages(list)
             notifyDataSetChanged()
             return true
         } else {
@@ -103,7 +105,7 @@ class PhotoAdapter(private var data: ArrayList<Image>,
             }
 
             data.removeAll(selection)
-            activity.deleteImages(selection)
+            adapterListener.deleteImages(selection)
             selection.clear()
             notifyDataSetChanged()
 

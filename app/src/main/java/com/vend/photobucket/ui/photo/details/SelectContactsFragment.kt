@@ -135,8 +135,7 @@ class SelectContactsFragment : Fragment(), ContactsAdapterListener {
                 PermissionChecker.checkSelfPermission(this.context!!, Manifest.permission.READ_CONTACTS)
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions()
-        }
-        else{
+        } else {
             setupRecyclerView()
         }
     }

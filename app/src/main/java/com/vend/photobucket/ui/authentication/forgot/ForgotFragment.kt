@@ -29,8 +29,6 @@ class ForgotFragment : Fragment(), ForgotClickListener {
     lateinit var forgotViewModel: ForgotViewModel
     @Inject
     lateinit var appContext: Context
-    @Inject
-    lateinit var newPasswordFragment: NewPasswordFragment
 
     private val PHONE_NUMBER_HINT = 100
 
@@ -75,7 +73,7 @@ class ForgotFragment : Fragment(), ForgotClickListener {
 
     private fun openNextScreen() {
         fragmentManager?.beginTransaction()
-                ?.replace(android.R.id.content, newPasswordFragment)
+                ?.replace(android.R.id.content, NewPasswordFragment())
                 ?.addToBackStack("ForgotFragment")
                 ?.commit()
     }

@@ -33,9 +33,6 @@ class PhotoActivity : AppCompatActivity() {
     private val PERMISSIONS = 30
 
     @Inject
-    lateinit var addPhotoFragment: AddPhotoFragment
-
-    @Inject
     lateinit var photoViewModel: PhotoViewModel
 
     private lateinit var navigationView: NavigationView
@@ -82,7 +79,7 @@ class PhotoActivity : AppCompatActivity() {
             R.id.btnAdd -> {
                 supportFragmentManager
                         .beginTransaction()
-                        .replace(android.R.id.content, addPhotoFragment)
+                        .replace(android.R.id.content, AddPhotoFragment())
                         .addToBackStack("PhotoActivity")
                         .commit()
 

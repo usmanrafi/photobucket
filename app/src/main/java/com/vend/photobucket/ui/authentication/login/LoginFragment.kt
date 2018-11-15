@@ -26,6 +26,12 @@ import javax.inject.Inject
 class LoginFragment : Fragment(), LoginClickListener {
 
     private val PHONE_NUMBER_HINT = 100
+    private val FILL_IN_INTENT = null
+    private val FLAGS_MASK = 0
+    private val FLAGS_VALUES = 0
+    private val EXTRA_FLAGS = 0
+    private val OPTION = null
+
 
     private lateinit var binding: LoginDataBinding
 
@@ -101,7 +107,7 @@ class LoginFragment : Fragment(), LoginClickListener {
             startIntentSenderForResult(
                     pendingIntent.intentSender,
                     PHONE_NUMBER_HINT,
-                    null, 0, 0, 0, null)
+                    FILL_IN_INTENT, FLAGS_MASK, FLAGS_VALUES, EXTRA_FLAGS, OPTION)
         } catch (e: Exception) {
             e.printStackTrace()
         }

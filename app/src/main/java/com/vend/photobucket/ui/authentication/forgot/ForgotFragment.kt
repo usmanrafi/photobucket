@@ -23,14 +23,21 @@ import javax.inject.Inject
 
 class ForgotFragment : Fragment(), ForgotClickListener {
 
+
+    private val PHONE_NUMBER_HINT = 100
+    private val FILL_IN_INTENT = null
+    private val FLAGS_MASK = 0
+    private val FLAGS_VALUES = 0
+    private val EXTRA_FLAGS = 0
+    private val OPTION = null
+
+
     private lateinit var binding: ForgotDataBinding
 
     @Inject
     lateinit var forgotViewModel: ForgotViewModel
     @Inject
     lateinit var appContext: Context
-
-    private val PHONE_NUMBER_HINT = 100
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,7 +95,7 @@ class ForgotFragment : Fragment(), ForgotClickListener {
             startIntentSenderForResult(
                     pendingIntent.intentSender,
                     PHONE_NUMBER_HINT,
-                    null, 0, 0, 0, null)
+                    FILL_IN_INTENT, FLAGS_MASK, FLAGS_VALUES, EXTRA_FLAGS, OPTION)
         } catch (e: Exception) {
             e.printStackTrace()
         }

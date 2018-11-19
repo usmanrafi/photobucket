@@ -11,10 +11,9 @@ import com.vend.photobucket.R
 import com.vend.photobucket.application.PhotoApplication
 import com.vend.photobucket.model.Image
 import com.vend.photobucket.ui.photo.PhotoActivity
+import com.vend.photobucket.utils.Keys
 import kotlinx.android.synthetic.main.fragment_details.*
 import javax.inject.Inject
-
-private const val ARG_IMAGE = "image"
 
 class DetailsFragment : Fragment() {
 
@@ -28,7 +27,7 @@ class DetailsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            val param = it.getString(ARG_IMAGE)
+            val param = it.getString(Keys.IMAGE_KEY)
             val arr = param.split("|")
             image = Image(arr[0].toLong(), arr[1], arr[2], arr[3], arr[4])
         }
@@ -112,7 +111,7 @@ class DetailsFragment : Fragment() {
         fun newInstance(image: Image) =
                 DetailsFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ARG_IMAGE, image.toString())
+                        putString(Keys.IMAGE_KEY, image.toString())
                     }
                 }
     }

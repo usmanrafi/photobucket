@@ -22,6 +22,7 @@ import android.widget.Toast
 import com.vend.photobucket.R
 import com.vend.photobucket.application.PhotoApplication
 import com.vend.photobucket.databinding.AddPhotoDataBinding
+import com.vend.photobucket.utils.Keys
 import kotlinx.android.synthetic.main.fragment_add_photo.*
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -146,12 +147,12 @@ class AddPhotoFragment : Fragment() {
     }
 
     private fun saveImage(myBitmap: Bitmap): String {
-        val IMAGE_DIRECTORY = "/photobucket"
+
 
         val bytes = ByteArrayOutputStream()
         myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes)
         val wallpaperDirectory = File(
-                (Environment.getExternalStorageDirectory()).toString() + IMAGE_DIRECTORY)
+                (Environment.getExternalStorageDirectory()).toString() + Keys.IMAGE_DIRECTORY_KEY)
 
         if (!wallpaperDirectory.exists())
             wallpaperDirectory.mkdirs()

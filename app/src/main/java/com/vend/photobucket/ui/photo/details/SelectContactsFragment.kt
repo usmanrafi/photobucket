@@ -18,11 +18,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.vend.photobucket.R
 import com.vend.photobucket.model.Image
+import com.vend.photobucket.utils.Keys
 import kotlinx.android.synthetic.main.fragment_select_contacts.*
 import java.io.File
 
 
-private const val ARG_IMAGE = "image"
 private const val PERMISSIONS = 30
 
 class SelectContactsFragment : Fragment(), ContactsAdapterListener {
@@ -33,7 +33,7 @@ class SelectContactsFragment : Fragment(), ContactsAdapterListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            val param = it.getString(ARG_IMAGE)
+            val param = it.getString(Keys.IMAGE_KEY)
             val arr = param.split("|")
             image = Image(arr[0].toLong(), arr[1], arr[2], arr[3], arr[4])
         }
@@ -54,7 +54,7 @@ class SelectContactsFragment : Fragment(), ContactsAdapterListener {
         fun newInstance(image: Image) =
                 SelectContactsFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ARG_IMAGE, image.toString())
+                        putString(Keys.IMAGE_KEY, image.toString())
                     }
                 }
     }

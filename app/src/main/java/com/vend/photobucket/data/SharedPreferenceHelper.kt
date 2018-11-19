@@ -1,21 +1,17 @@
 package com.vend.photobucket.data
 
 import android.content.SharedPreferences
-import com.vend.photobucket.application.PhotoApplication
-import javax.inject.Inject
+import com.vend.photobucket.utils.Keys
 
 class SharedPreferenceHelper(var sharedPreferences: SharedPreferences) {
 
-    private val KEY = "phoneNumber"
-
     fun putSession(phoneNumber: String) {
-        sharedPreferences.edit().putString(this.KEY, phoneNumber).apply()
+        sharedPreferences.edit().putString(Keys.SHARED_PREFERENCE_KEY, phoneNumber).apply()
     }
 
-    fun getSession(): String? = sharedPreferences.getString(this.KEY, null)
+    fun getSession(): String? = sharedPreferences.getString(Keys.SHARED_PREFERENCE_KEY, null)
 
     fun clearSession() {
-//        sharedPreferences.edit().remove(this.KEY).commit()
         sharedPreferences.edit().clear().commit()
     }
 

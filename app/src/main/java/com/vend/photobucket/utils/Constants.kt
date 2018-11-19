@@ -9,3 +9,12 @@ class Validation{
 
     }
 }
+
+class Keys{
+    companion object {
+
+        const val SHARED_PREFERENCE_KEY = "phoneNumber"
+        const val IMAGE_KEY = "image"
+        const val IMAGE_DIRECTORY_KEY = "/photobucket"
+    }
+}

@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.vend.photobucket.data.RealmHelper
 import com.vend.photobucket.data.SharedPreferenceHelper
+import com.vend.photobucket.utils.Validation
 
 class LoginViewModel(var realmHelper: RealmHelper,
                      var sharedPreferenceHelper: SharedPreferenceHelper) : ViewModel() {
@@ -32,7 +33,8 @@ class LoginViewModel(var realmHelper: RealmHelper,
 
     fun validateInfo(): Boolean {
         phoneNumber = phoneNumber.trim()
-        if (phoneNumber.length >= 8 && password.length >= 5) {
+        if (phoneNumber.length >= Validation.PHONE_NUMBER_LENGTH
+                && password.length >= Validation.PASSWORD_LENGTH) {
             val credentials = realmHelper.getCredentials(phoneNumber)
             if (credentials?.password == password)
                 return true

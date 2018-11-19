@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.vend.photobucket.data.RealmHelper
 import com.vend.photobucket.data.SharedPreferenceHelper
+import com.vend.photobucket.utils.Validation
 
 class ForgotViewModel(var realmHelper: RealmHelper,
                       var sharedPreferenceHelper: SharedPreferenceHelper) : ViewModel() {
@@ -39,8 +40,8 @@ class ForgotViewModel(var realmHelper: RealmHelper,
     }
 
     fun changePassword() {
-        if ((newPassword.length >= 5) &&
-                (confirmPassword.length >= 5) &&
+        if ((newPassword.length >= Validation.PASSWORD_LENGTH) &&
+                (confirmPassword.length >= Validation.PASSWORD_LENGTH) &&
                 (newPassword == confirmPassword)) {
 
             realmHelper.updateUserPassword(phoneNumber, newPassword)

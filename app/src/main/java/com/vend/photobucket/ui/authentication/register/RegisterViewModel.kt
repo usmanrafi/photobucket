@@ -7,6 +7,7 @@ import com.vend.photobucket.data.RealmHelper
 import com.vend.photobucket.data.SharedPreferenceHelper
 import com.vend.photobucket.model.Credentials
 import com.vend.photobucket.model.User
+import com.vend.photobucket.utils.Validation
 
 class RegisterViewModel(var realmHelper: RealmHelper,
                         var sharedPreferenceHelper: SharedPreferenceHelper) : ViewModel() {
@@ -52,10 +53,10 @@ class RegisterViewModel(var realmHelper: RealmHelper,
     }
 
     private fun validateInfo(): Boolean {
-        if ((firstName.length >= 3) &&
-                (lastName.length >= 3) &&
-                (phoneNumber.length >= 8) &&
-                (password.length >= 5) &&
+        if ((firstName.length >= Validation.NAME_LENGTH) &&
+                (lastName.length >= Validation.NAME_LENGTH) &&
+                (phoneNumber.length >= Validation.PHONE_NUMBER_LENGTH) &&
+                (password.length >= Validation.PASSWORD_LENGTH) &&
                 (password == confirmPassword))
             return true
 

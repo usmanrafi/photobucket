@@ -29,7 +29,7 @@ class DetailsFragment : Fragment() {
         arguments?.let {
             val param = it.getString(Keys.IMAGE_KEY)
             val arr = param.split("|")
-            image = Image(arr[0].toLong(), arr[1], arr[2], arr[3], arr[4])
+            image = Image(arr[0].toLong(), arr[1], arr[2], arr[3], arr[4], arr[5].toLong())
         }
         (activity!!.applicationContext as PhotoApplication).getAppComponent().inject(this)
     }

@@ -55,7 +55,8 @@ class AddPhotoViewModel(var sharedPreferenceHelper: SharedPreferenceHelper,
                           user!!.phoneNumber,
                           title,
                           description,
-                          path)
+                          path,
+                          System.currentTimeMillis())
 
         realmHelper.addImage(image)
     }

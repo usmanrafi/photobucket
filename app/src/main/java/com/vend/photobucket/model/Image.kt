@@ -10,21 +10,26 @@ open class Image(
         var phoneNumber: String = "",
         var title: String = "",
         var description: String = "",
-        var path: String = ""
-        ): RealmObject() {
+        var path: String = "",
+        var saveTimeInMillis: Long = 0
+) : RealmObject() {
 
     override fun equals(other: Any?): Boolean {
-        if(other is Image){
+        if (other is Image) {
             return other.id == this.id
         }
         return super.equals(other)
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(id, phoneNumber, title, description, path)
+        return Objects.hash(id, phoneNumber, title, description, path, saveTimeInMillis)
     }
 
     override fun toString(): String {
-        return "$id|$phoneNumber|$title|$description|$path"
+        return "$id|$phoneNumber|$title|$description|$path|$saveTimeInMillis"
     }
+
+    fun savedDuring(startingDate: Date, endingDate: Date): Boolean =
+            (saveTimeInMillis >= startingDate.time && saveTimeInMillis <= endingDate.time)
+
 }

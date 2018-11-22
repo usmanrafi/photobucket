@@ -32,4 +32,7 @@ open class Image(
     fun savedDuring(startingDate: Date, endingDate: Date): Boolean =
             (saveTimeInMillis >= startingDate.time && saveTimeInMillis <= endingDate.time)
 
+    fun convertTitleToUpperCase(){
+        title = title.toUpperCase()
+    }
 }

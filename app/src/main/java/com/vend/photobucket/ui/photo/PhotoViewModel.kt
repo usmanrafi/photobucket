@@ -44,4 +44,11 @@ class PhotoViewModel(var sharedPreferenceHelper: SharedPreferenceHelper,
             realmHelper.deleteImage(it)
         }
     }
+
+    fun convertImagesToUpperCase(){
+        val phoneNumber = sharedPreferenceHelper.getSession()
+        phoneNumber?.let {
+            realmHelper.convertImageTitlesToUppercase(it)
+        }
+    }
 }

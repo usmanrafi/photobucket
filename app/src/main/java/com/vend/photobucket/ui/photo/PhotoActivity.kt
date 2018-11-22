@@ -157,6 +157,7 @@ class PhotoActivity : AppCompatActivity(), PhotoAdapterListener, DatabaseImageLi
             when (it.itemId) {
 
                 R.id.photos -> {
+                    photoViewModel.convertImagesToUpperCase()
                 }
                 R.id.logout -> {
                     photoViewModel.clearSession()

@@ -53,6 +53,17 @@
             android:visibility="invisible"
         />
 
+        <Button
+            android:id="@+id/btnCapitalize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_text_capitalize"
+            app:layout_constraintTop_toBottomOf="@id/appbar"
+            app:layout_constraintBottom_toTopOf="@id/rvImages"
+            app:layout_constraintLeft_toRightOf="@id/btnDelete"
+            android:layout_marginLeft="@dimen/margin_small"
+        />
+
         <ImageButton
             android:id="@+id/ibSwitchView"
             android:layout_width="wrap_content"

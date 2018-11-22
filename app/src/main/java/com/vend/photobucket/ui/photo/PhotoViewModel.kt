@@ -49,6 +49,9 @@ class PhotoViewModel(var sharedPreferenceHelper: SharedPreferenceHelper,
         val phoneNumber = sharedPreferenceHelper.getSession()
         phoneNumber?.let {
             realmHelper.convertImageTitlesToUppercase(it)
+
+            val list: ArrayList<Image> = realmHelper.getImages(it) as ArrayList
+            data.value = list
         }
     }
 }

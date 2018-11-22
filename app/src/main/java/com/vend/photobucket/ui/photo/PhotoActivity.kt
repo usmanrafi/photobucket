@@ -157,7 +157,6 @@ class PhotoActivity : AppCompatActivity(), PhotoAdapterListener, DatabaseImageLi
             when (it.itemId) {
 
                 R.id.photos -> {
-                    photoViewModel.convertImagesToUpperCase()
                 }
                 R.id.logout -> {
                     photoViewModel.clearSession()
@@ -186,6 +185,10 @@ class PhotoActivity : AppCompatActivity(), PhotoAdapterListener, DatabaseImageLi
                     Toast.makeText(this.context, "Please select image(s) first", Toast.LENGTH_LONG)
                             .show()
             }
+        }
+
+        btnCapitalize.setOnClickListener {
+            photoViewModel.convertImagesToUpperCase()
         }
 
         ibSwitchView.apply {

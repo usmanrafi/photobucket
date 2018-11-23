@@ -45,13 +45,18 @@ class PhotoViewModel(var sharedPreferenceHelper: SharedPreferenceHelper,
         }
     }
 
-    fun convertImagesToUpperCase(){
+    fun updateData() {
+        val phoneNumber = sharedPreferenceHelper.getSession()
+        phoneNumber?.let {
+            val list: ArrayList<Image> = realmHelper.getImages(it) as ArrayList
+            data.value = list
+        }
+    }
+
+    fun convertImageTitlesToUpperCase() {
         val phoneNumber = sharedPreferenceHelper.getSession()
         phoneNumber?.let {
             realmHelper.convertImageTitlesToUppercase(it)
-
-            val list: ArrayList<Image> = realmHelper.getImages(it) as ArrayList
-            data.value = list
         }
     }
 }

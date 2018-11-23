@@ -92,7 +92,7 @@ class PhotoActivity : AppCompatActivity(), PhotoAdapterListener, DatabaseImageLi
     }
 
     override fun imageAdded() {
-        photoViewModel.checkSession()
+        photoViewModel.updateData()
     }
 
     fun updateImage(image: Image) {
@@ -188,7 +188,8 @@ class PhotoActivity : AppCompatActivity(), PhotoAdapterListener, DatabaseImageLi
         }
 
         btnCapitalize.setOnClickListener {
-            photoViewModel.convertImagesToUpperCase()
+            photoViewModel.convertImageTitlesToUpperCase()
+            photoViewModel.updateData()
         }
 
         ibSwitchView.apply {

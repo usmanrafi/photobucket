@@ -28,4 +28,10 @@
     <string name="button_text_save">Save</string>
     <string name="button_text_send">Send</string>
 
+    <string-array name="spinner_sort_items">
+        <item>Shuffle</item>
+        <item>Sort by Title</item>
+        <item>Sort by Date (desc)</item>
+    </string-array>
+
 </resources>

@@ -12,6 +12,7 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.vend.photobucket.R
 import com.vend.photobucket.model.Image
+import java.util.*
 
 class PhotoAdapter(private var data: ArrayList<Image>,
                    private val photoAdapterListener: PhotoAdapterListener,
@@ -111,5 +112,22 @@ class PhotoAdapter(private var data: ArrayList<Image>,
 
             return true
         }
+    }
+
+    fun shuffle(){
+        data.shuffle()
+
+        notifyDataSetChanged()
+    }
+
+    fun sortByTitle(){
+        data.sortWith(Comparator { p0, p1 -> p0!!.title.compareTo(p1.title)})
+        notifyDataSetChanged()
+    }
+
+    fun sortByDate(ascending: Boolean){
+        val order = if(ascending) 1 else -1
+        data.sortWith(kotlin.Comparator { p0, p1 ->  (p0!!.saveTimeInMillis.compareTo(p1.saveTimeInMillis) * order)})
+        notifyDataSetChanged()
     }
 }

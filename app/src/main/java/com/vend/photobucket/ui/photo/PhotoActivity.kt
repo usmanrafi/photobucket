@@ -20,6 +20,8 @@ import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.vend.photobucket.R
 import com.vend.photobucket.application.PhotoApplication
@@ -57,18 +59,23 @@ class PhotoActivity : AppCompatActivity(), PhotoAdapterListener, DatabaseImageLi
         drawerLayout = drawer_layout
         toolbar = toolbar_layout
 
-
-        setDrawerLayoutToggle()
-        setupToolbar()
-        setNavigationListener()
-
-        setupButtons()
-        setupRecyclerView()
+        initViews()
 
         subscribe()
 
         photoViewModel.checkSession()
 
+    }
+
+    private fun initViews(){
+        setDrawerLayoutToggle()
+        setupToolbar()
+        setNavigationListener()
+
+        setupButtons()
+        setupSpinner()
+
+        setupRecyclerView()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -190,6 +197,9 @@ class PhotoActivity : AppCompatActivity(), PhotoAdapterListener, DatabaseImageLi
         btnCapitalize.setOnClickListener {
             photoViewModel.convertImageTitlesToUpperCase()
             photoViewModel.updateData()
+
+            // sort by title
+            spinnerSort.setSelection(1)
         }
 
         ibSwitchView.apply {
@@ -207,6 +217,38 @@ class PhotoActivity : AppCompatActivity(), PhotoAdapterListener, DatabaseImageLi
                 }
             }
         }
+    }
+
+    private fun setupSpinner(){
+        val items = resources.getStringArray(R.array.spinner_sort_items)
+        spinnerSort.adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items)
+
+        spinnerSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                shuffleImages()
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                when (p2){
+                    0 -> shuffleImages()
+                    1 -> sortImagesByTitle()
+                    2 -> sortImagesByDate()
+                }
+            }
+
+        }
+    }
+
+    private fun shuffleImages(){
+        rvAdapter.shuffle()
+    }
+
+    private fun sortImagesByTitle(){
+        rvAdapter.sortByTitle()
+    }
+
+    private fun sortImagesByDate(){
+        rvAdapter.sortByDate(ascending = false)
     }
 
     private fun setupRecyclerView() {

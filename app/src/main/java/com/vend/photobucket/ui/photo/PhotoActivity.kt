@@ -16,6 +16,8 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
@@ -76,6 +78,8 @@ class PhotoActivity : AppCompatActivity(), PhotoAdapterListener, DatabaseImageLi
         setupSpinner()
 
         setupRecyclerView()
+        setupSearch()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -131,8 +135,33 @@ class PhotoActivity : AppCompatActivity(), PhotoAdapterListener, DatabaseImageLi
             it?.let {
                 rvAdapter.setData(it)
                 rvAdapter.notifyDataSetChanged()
+
+
+                tvAutoCompleteSearch.setAdapter(ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, rvAdapter.getSearchSuggestions()))
             }
         })
+    }
+
+    private fun setupSearch(){
+        tvAutoCompleteSearch.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                rvAdapter.filter.filter(p0.toString())
+
+                // shuffle images
+                spinnerSort.setSelection(1)
+                spinnerSort.setSelection(0)
+            }
+        })
+
+        btnSearch.setOnClickListener {
+            rvAdapter.filter.filter(tvAutoCompleteSearch.text.toString())
+        }
     }
 
     private fun setDrawerLayoutToggle() {

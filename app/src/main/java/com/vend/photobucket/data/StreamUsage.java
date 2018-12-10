@@ -1,6 +1,7 @@
 package com.vend.photobucket.data;
 
 import android.os.Build;
+import android.util.Log;
 
 import com.vend.photobucket.model.Image;
 
@@ -21,5 +22,18 @@ public class StreamUsage {
                         .forEach(it::copyToRealmOrUpdate);
             }
         });
+    }
+
+    public static String[] getImageTitles(ArrayList<Image> images) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
+            String[] bar = images.stream()
+                    .map(Image::getTitle)
+                    .toArray(String[]::new);
+
+            return bar;
+        }
+
+        return new String[0];
     }
 }

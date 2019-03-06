@@ -9,7 +9,6 @@ import io.realm.Realm
 
 class RealmHelper(var realm: Realm) {
 
-
     fun createUser(user: User, credentials: Credentials) {
         realm.executeTransaction {
             it.copyToRealm(user)
@@ -46,6 +45,10 @@ class RealmHelper(var realm: Realm) {
 
     fun getImages(phoneNumber: String): List<Image> {
         return ArrayList(realm.where(Image::class.java).equalTo("phoneNumber", phoneNumber).findAll())
+    }
+
+    fun getImageTitle(image: Image): String{
+        return realm.where(Image::class.java).equalTo("id", image.id).findFirst()?.title.toString()
     }
 
     fun convertImageTitlesToUppercase(phoneNumber: String) {

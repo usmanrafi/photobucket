@@ -12,6 +12,7 @@ android {
     }
 
     compileSdkVersion 27
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.vend.photobucket"
         minSdkVersion 21
@@ -49,6 +50,7 @@ dependencies {
     implementation "com.google.dagger:dagger:$dagger_version"
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
 
+    implementation "io.realm:android-adapters:2.1.0"
 
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 

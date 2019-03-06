@@ -125,6 +125,10 @@ class PhotoActivity : AppCompatActivity(), PhotoAdapterListener, DatabaseImageLi
                 .commit()
     }
 
+    override fun getFilteredImages(constraint: String, images: ArrayList<Image>): ArrayList<Image> {
+        return photoViewModel.getFilteredImages(constraint, images)
+    }
+
     private fun subscribe() {
         photoViewModel.getUser().observe(this, Observer {
             val str = "${it?.firstName} ${it?.lastName}"

@@ -69,7 +69,7 @@ class PhotoActivity : AppCompatActivity(), PhotoAdapterListener, DatabaseImageLi
 
     }
 
-    private fun initViews(){
+    private fun initViews() {
         setDrawerLayoutToggle()
         setupToolbar()
         setNavigationListener()
@@ -79,7 +79,6 @@ class PhotoActivity : AppCompatActivity(), PhotoAdapterListener, DatabaseImageLi
 
         setupRecyclerView()
         setupSearch()
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -146,8 +145,8 @@ class PhotoActivity : AppCompatActivity(), PhotoAdapterListener, DatabaseImageLi
         })
     }
 
-    private fun setupSearch(){
-        tvAutoCompleteSearch.addTextChangedListener(object : TextWatcher{
+    private fun setupSearch() {
+        tvAutoCompleteSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
             }
 
@@ -252,17 +251,17 @@ class PhotoActivity : AppCompatActivity(), PhotoAdapterListener, DatabaseImageLi
         }
     }
 
-    private fun setupSpinner(){
+    private fun setupSpinner() {
         val items = resources.getStringArray(R.array.spinner_sort_items)
         spinnerSort.adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items)
 
-        spinnerSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        spinnerSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 shuffleImages()
             }
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                when (p2){
+                when (p2) {
                     0 -> shuffleImages()
                     1 -> sortImagesByTitle()
                     2 -> sortImagesByDate()
@@ -272,15 +271,15 @@ class PhotoActivity : AppCompatActivity(), PhotoAdapterListener, DatabaseImageLi
         }
     }
 
-    private fun shuffleImages(){
+    private fun shuffleImages() {
         rvAdapter.shuffle()
     }
 
-    private fun sortImagesByTitle(){
+    private fun sortImagesByTitle() {
         rvAdapter.sortByTitle()
     }
 
-    private fun sortImagesByDate(){
+    private fun sortImagesByDate() {
         rvAdapter.sortByDate(ascending = false)
     }
 
